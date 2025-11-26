@@ -15,5 +15,5 @@ public class StudentManagementSystem
     System.out.println("--- 2. ADMIN LOGIN ---");
     System.out.println("--- 3. EXIT ---");
     System.out.println("Enter your choice ( 1 to 3 )");
-    
+  }
 }
