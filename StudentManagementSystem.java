@@ -154,6 +154,22 @@ public class StudentManagementSystem
               }            
           }
       }
+  public static void stdAttendance() 
+  {}
+  public static void stdAcademics() 
+  {}
+  public static void stdProfile() 
+  {}
+  public static void addRecord() 
+  {}
+  public static void viewRecord() 
+  {}
+  public static void updateRecord() 
+  {}
+  public static void searchRecord() 
+  {}
+  public static void saveToFile() 
+  {}
   public static void main(String[] args) 
   {
     while(true)
