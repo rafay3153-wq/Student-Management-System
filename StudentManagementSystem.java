@@ -5,7 +5,7 @@ public class StudentManagementSystem
   public static void stdLogin()
   {
     input.nextLine();  
-    System.out.println("\n----------> STUDENT LOGIN <----------");
+    System.out.println("\n\n----------> STUDENT LOGIN <----------");
     System.out.println();
     System.out.println();
     System.out.println();
@@ -38,7 +38,7 @@ public class StudentManagementSystem
   public static void admLogin()
   {
     input.nextLine();  
-    System.out.println("\n----------> ADMIN LOGIN <----------");
+    System.out.println("\n\n----------> ADMIN LOGIN <----------");
     System.out.println();
     System.out.println();
     System.out.println();
@@ -72,12 +72,19 @@ public class StudentManagementSystem
   {
     while(true)
           {
-            System.out.println("\n----------> STUDENT PANEL <----------");
+            System.out.println("\n\n----------> STUDENT PANEL <----------");
             System.out.println("--- 1. View Attendance ---");
             System.out.println("--- 2. View Acadamics Report ---");
             System.out.println("--- 3. View Profile ---");
             System.out.println("--- 4. Log out ---");
             System.out.print("Enter your choice ( 1 to 4 ) : ");
+            if (!input.hasNextInt()) 
+            {
+              System.out.println("Please enter numbers only!");
+              System.out.println("\nReturning to Student Panel\n");
+              input.nextLine();
+              continue;
+            }
             int choice = input.nextInt();
             input.nextLine();  
             switch(choice) 
@@ -93,11 +100,11 @@ public class StudentManagementSystem
                   break;
                 case 4:
                 {
-                  System.out.println("Exiting The Program");
+                  System.out.println("\nExiting The Program");
                   return;
                 }
                 default: 
-                  System.out.println("Invalid Input!");
+                  System.out.println("\nInvalid Entry  Enter between 1 to 4");
               }            
           }
       }
@@ -105,7 +112,7 @@ public class StudentManagementSystem
       {
         while(true)
           {
-            System.out.println("\n----------> ADMIN PANEL <----------");
+            System.out.println("\n\n----------> ADMIN PANEL <----------");
             System.out.println("--- 1. Add Student Record ---");
             System.out.println("--- 2. View All Student Records ---");
             System.out.println("--- 3. Update Student Details ---");
@@ -113,6 +120,13 @@ public class StudentManagementSystem
             System.out.println("--- 5. Save Records to File ---");
             System.out.println("--- 6. Logout ---");
             System.out.print("Enter your choice ( 1 to 6 ) : ");
+            if (!input.hasNextInt()) 
+            {
+              System.out.println("\nPlease enter numbers only!");
+              System.out.println("\nReturning to Admin Panel\n");
+              input.nextLine();
+              continue;
+            }
             int choice = input.nextInt();
             input.nextLine();  
             switch(choice) 
@@ -132,10 +146,11 @@ public class StudentManagementSystem
                 case 5: 
                   saveToFile(); 
                   break;
-                case 6: 
+                case 6:
+                  System.out.println("\nExiting The Program");
                   return;
                 default: 
-                  System.out.println("Invalid Input!");
+                  System.out.println("\nInvalid Entry  Enter between 1 to 6");
               }            
           }
       }
@@ -154,6 +169,13 @@ public class StudentManagementSystem
         System.out.println("--- 2. ADMIN LOGIN ---");
         System.out.println("--- 3. EXIT ---");
         System.out.println("Enter your choice ( 1 to 3 ) : ");
+        if (!input.hasNextInt()) 
+            {
+              System.out.println("\nPlease enter numbers only!");
+              System.out.println("\nReturning to Login Menu\n");
+              input.nextLine();
+              continue;
+            }
         int choice = input.nextInt();
         switch(choice)
         {
@@ -165,11 +187,11 @@ public class StudentManagementSystem
             break;
           case 3:
             {
-              System.out.println("Exiting The Program");
+              System.out.println("\nExiting The Program");
               return;
             }
           default:
-            System.out.println("Invalid Entry  Enter between 1 to 3");
+            System.out.println("\nInvalid Entry  Enter between 1 to 3");
           
         }
       }
