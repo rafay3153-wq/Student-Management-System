@@ -4,6 +4,7 @@ public class StudentManagementSystem
   public static Scanner input = new Scanner(System.in);
   public static void stdLogin()
   {
+    input.nextLine();  
     System.out.println("\n----------> STUDENT LOGIN <----------");
     System.out.println();
     System.out.println();
@@ -36,6 +37,7 @@ public class StudentManagementSystem
   }
   public static void admLogin()
   {
+    input.nextLine();  
     System.out.println("\n----------> ADMIN LOGIN <----------");
     System.out.println();
     System.out.println();
@@ -46,8 +48,25 @@ public class StudentManagementSystem
     System.out.println();
     System.out.println("PASSWORD : ");
     String admpass = input.nextLine();
-    System.out.println("Admin Login Successful!");
-    adminMenu();
+    if( admname.equals("teacher1") && admpass.equals("0011") )
+    {
+      System.out.println("Admin Login Successful!");
+      System.out.println("Welcome Teacher1");
+      admPanel();
+    }
+    else if( admname.equals("teacher2") && admpass.equals("3322") )
+    {
+      System.out.println("Admin Login Successful!");
+      System.out.println("Welcome Teacher2");
+      admPanel();
+    }
+    else
+    {
+      System.out.println("\nInvalid Username or Password");
+      System.out.println("\nReturning to Login menu");
+      return;
+    }
+    
   }
   public static void stdPanel()
   {
@@ -60,6 +79,7 @@ public class StudentManagementSystem
             System.out.println("--- 4. Log out ---");
             System.out.print("Enter your choice ( 1 to 6 ) : ");
             int choice = input.nextInt();
+            input.nextLine();  
             switch(choice) 
             {
                 case 1: 
@@ -81,7 +101,7 @@ public class StudentManagementSystem
               }            
           }
       }
-  public static void adminPanel() 
+  public static void admPanel() 
       {
         while(true)
           {
@@ -94,6 +114,7 @@ public class StudentManagementSystem
             System.out.println("--- 6. Logout ---");
             System.out.print("Enter your choice ( 1 to 6 ) : ");
             int choice = input.nextInt();
+            input.nextLine();  
             switch(choice) 
             {
                 case 1: 
