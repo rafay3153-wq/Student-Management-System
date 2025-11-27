@@ -77,7 +77,7 @@ public class StudentManagementSystem
             System.out.println("--- 2. View Acadamics Report ---");
             System.out.println("--- 3. View Profile ---");
             System.out.println("--- 4. Log out ---");
-            System.out.print("Enter your choice ( 1 to 6 ) : ");
+            System.out.print("Enter your choice ( 1 to 4 ) : ");
             int choice = input.nextInt();
             input.nextLine();  
             switch(choice) 
