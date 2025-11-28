@@ -155,21 +155,21 @@ public class StudentManagementSystem
           }
       }
   public static void stdAttendance() 
-  {}
+  {System.out.println("\n\n----------> STUDENT ATTENDANCE <----------");}
   public static void stdAcademics() 
-  {}
+  {System.out.println("\n\n----------> ACADEMICS REPORT <----------");}
   public static void stdProfile() 
-  {}
+  {System.out.println("\n\n----------> STUDENT PROFILE <----------");}
   public static void addRecord() 
-  {}
+  {System.out.println("\n\n----------> ADD RECORD <----------");}
   public static void viewRecord() 
-  {}
+  {System.out.println("\n\n----------> VIEW RECORD <----------");}
   public static void updateRecord() 
-  {}
+  {System.out.println("\n\n----------> UPDATE RECORD <----------");}
   public static void searchRecord() 
-  {}
+  {System.out.println("\n\n----------> SEARCH RECORD <----------");}
   public static void saveToFile() 
-  {}
+  {System.out.println("\n\n----------> FILE SAVING <----------");}
   public static void main(String[] args) 
   {
     while(true)
