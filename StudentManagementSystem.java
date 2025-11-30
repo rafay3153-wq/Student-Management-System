@@ -177,6 +177,7 @@ public class StudentManagementSystem
   public static void stdAcademics() 
   {
     System.out.println("\n\n----------> ACADEMICS REPORT <----------");
+    
     System.out.println("\nPress Enter to return to Student Panel...");
     input.nextLine();  
   }
@@ -193,30 +194,35 @@ public class StudentManagementSystem
   public static void addRecord() 
   {
     System.out.println("\n\n----------> ADD RECORD <----------");
+    
     System.out.println("\nPress Enter to return to Admin Panel...");
     input.nextLine();
   }
   public static void viewRecord() 
   {
     System.out.println("\n\n----------> VIEW RECORD <----------");
+    
     System.out.println("\nPress Enter to return to Admin Panel...");
     input.nextLine();
   }
   public static void updateRecord() 
   {
     System.out.println("\n\n----------> UPDATE RECORD <----------");
+    
     System.out.println("\nPress Enter to return to Admin Panel...");
     input.nextLine();
   }
   public static void searchRecord() 
   {
     System.out.println("\n\n----------> SEARCH RECORD <----------");
+    
     System.out.println("\nPress Enter to return to Admin Panel...");
     input.nextLine();
   }
   public static void saveToFile() 
   {
     System.out.println("\n\n----------> FILE SAVING <----------");
+    
     System.out.println("\nPress Enter to return to Admin Panel...");
     input.nextLine();
   }
