@@ -93,7 +93,7 @@ public class StudentManagementSystem
                   stdAttendance(); 
                   break;
                 case 2: 
-                  stdAcadamics(); 
+                  stdAcademics(); 
                   break;
                 case 3: 
                   stdProfile(); 
