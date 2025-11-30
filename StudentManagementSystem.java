@@ -169,9 +169,17 @@ public class StudentManagementSystem
           }
       }
   public static void stdAttendance() 
-  {System.out.println("\n\n----------> STUDENT ATTENDANCE <----------");}
+  {
+    System.out.println("\n\n----------> STUDENT ATTENDANCE <----------");
+    System.out.println("\nPress Enter to return to Student Panel...");
+    input.nextLine();
+  }
   public static void stdAcademics() 
-  {System.out.println("\n\n----------> ACADEMICS REPORT <----------");}
+  {
+    System.out.println("\n\n----------> ACADEMICS REPORT <----------");
+    System.out.println("\nPress Enter to return to Student Panel...");
+    input.nextLine();  
+  }
   public static void stdProfile() 
   {
     System.out.println("\n\n----------> STUDENT PROFILE <----------");
@@ -179,6 +187,8 @@ public class StudentManagementSystem
     System.out.println("\nAge : \t" + LoggedAge);
     System.out.println("\nDate Of Birth : \t" + LoggedDOB);
     System.out.println("\nRoll Number : \t" + LoggedRollNo);
+    System.out.println("\nPress Enter to return to Student Panel...");
+    input.nextLine();
   }
   public static void addRecord() 
   {System.out.println("\n\n----------> ADD RECORD <----------");}
