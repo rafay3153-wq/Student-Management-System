@@ -91,7 +91,7 @@ public class StudentManagementSystem
             System.out.println("--- 2. View Acadamics Report ---");
             System.out.println("--- 3. View Profile ---");
             System.out.println("--- 4. Log out ---");
-            System.out.print("Enter your choice ( 1 to 4 ) : ");
+            System.out.println("\nEnter your choice ( 1 to 4 ) : ");
             if (!input.hasNextInt()) 
             {
               System.out.println("Please enter numbers only!");
@@ -133,7 +133,7 @@ public class StudentManagementSystem
             System.out.println("--- 4. Search Student Records ---");
             System.out.println("--- 5. Save Records to File ---");
             System.out.println("--- 6. Logout ---");
-            System.out.print("Enter your choice ( 1 to 6 ) : ");
+            System.out.println("\nEnter your choice ( 1 to 6 ) : ");
             if (!input.hasNextInt()) 
             {
               System.out.println("\nPlease enter numbers only!");
@@ -191,15 +191,35 @@ public class StudentManagementSystem
     input.nextLine();
   }
   public static void addRecord() 
-  {System.out.println("\n\n----------> ADD RECORD <----------");}
+  {
+    System.out.println("\n\n----------> ADD RECORD <----------");
+    System.out.println("\nPress Enter to return to Admin Panel...");
+    input.nextLine();
+  }
   public static void viewRecord() 
-  {System.out.println("\n\n----------> VIEW RECORD <----------");}
+  {
+    System.out.println("\n\n----------> VIEW RECORD <----------");
+    System.out.println("\nPress Enter to return to Admin Panel...");
+    input.nextLine();
+  }
   public static void updateRecord() 
-  {System.out.println("\n\n----------> UPDATE RECORD <----------");}
+  {
+    System.out.println("\n\n----------> UPDATE RECORD <----------");
+    System.out.println("\nPress Enter to return to Admin Panel...");
+    input.nextLine();
+  }
   public static void searchRecord() 
-  {System.out.println("\n\n----------> SEARCH RECORD <----------");}
+  {
+    System.out.println("\n\n----------> SEARCH RECORD <----------");
+    System.out.println("\nPress Enter to return to Admin Panel...");
+    input.nextLine();
+  }
   public static void saveToFile() 
-  {System.out.println("\n\n----------> FILE SAVING <----------");}
+  {
+    System.out.println("\n\n----------> FILE SAVING <----------");
+    System.out.println("\nPress Enter to return to Admin Panel...");
+    input.nextLine();
+  }
   public static void main(String[] args) 
   {
     while(true)
@@ -214,7 +234,7 @@ public class StudentManagementSystem
         System.out.println("--- 1. STUDENT LOGIN ---");
         System.out.println("--- 2. ADMIN LOGIN ---");
         System.out.println("--- 3. EXIT ---");
-        System.out.println("Enter your choice ( 1 to 3 ) : ");
+        System.out.println("\nEnter your choice ( 1 to 3 ) : ");
         if (!input.hasNextInt()) 
             {
               System.out.println("\nPlease enter numbers only!");
@@ -238,12 +258,7 @@ public class StudentManagementSystem
             }
           default:
             System.out.println("\nInvalid Entry  Enter between 1 to 3");
-          
         }
       }
-    
-    
-      
-   
   }
 }
