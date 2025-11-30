@@ -1,6 +1,12 @@
 import java.util.*;
 public class StudentManagementSystem 
 {
+  public static String LoggedName = "";
+  public static int LoggedAge = 0;
+  public static String LoggedDOB = "";
+  public static int LoggedRollNo = 0;
+  public static double LoggedCGPA = 0.0;
+  public static String LoggedGrade = "";
   public static Scanner input = new Scanner(System.in);
   public static void stdLogin()
   {
@@ -17,12 +23,20 @@ public class StudentManagementSystem
     String stdpass = input.nextLine();
     if( stdname.equals("FA25-BDS-045") && stdpass.equals("28076") )
     {
+      LoggedName = "Shehryar Khurram";
+      LoggedAge = 18;
+      LoggedRollNo = 45;
+      LoggedDOB = "29 December 2006";
       System.out.println("Student Login Successful!");
       System.out.println("Welcome Shehryar");
       stdPanel();
     }
     else if( stdname.equals("FA25-BDS-035") && stdpass.equals("12345") )
     {
+      LoggedName = "Muhammad Rafay";
+      LoggedAge = 20;
+      LoggedRollNo = 35;
+      LoggedDOB = "29 October 2005";
       System.out.println("Student Login Successful!");
       System.out.println("Welcome Rafay");
       stdPanel();
@@ -100,7 +114,7 @@ public class StudentManagementSystem
                   break;
                 case 4:
                 {
-                  System.out.println("\nExiting The Program");
+                  System.out.println("\nReturning to Login Menu");
                   return;
                 }
                 default: 
@@ -147,7 +161,7 @@ public class StudentManagementSystem
                   saveToFile(); 
                   break;
                 case 6:
-                  System.out.println("\nExiting The Program");
+                  System.out.println("\nReturning to Login Menu");
                   return;
                 default: 
                   System.out.println("\nInvalid Entry  Enter between 1 to 6");
@@ -159,7 +173,13 @@ public class StudentManagementSystem
   public static void stdAcademics() 
   {System.out.println("\n\n----------> ACADEMICS REPORT <----------");}
   public static void stdProfile() 
-  {System.out.println("\n\n----------> STUDENT PROFILE <----------");}
+  {
+    System.out.println("\n\n----------> STUDENT PROFILE <----------");
+    System.out.println("\nName : \t" + LoggedName);
+    System.out.println("\nAge : \t" + LoggedAge);
+    System.out.println("\nDate Of Birth : \t" + LoggedDOB);
+    System.out.println("\nRoll Number : \t" + LoggedRollNo);
+  }
   public static void addRecord() 
   {System.out.println("\n\n----------> ADD RECORD <----------");}
   public static void viewRecord() 
