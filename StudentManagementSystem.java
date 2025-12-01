@@ -44,7 +44,7 @@ public class StudentManagementSystem
     else
     {
       System.out.println("\nInvalid Username or Password");
-      System.out.println("\nReturning to Login menu");
+      System.out.println("\nReturning to Login menu\n\n");
       return;
     }
       
@@ -77,7 +77,7 @@ public class StudentManagementSystem
     else
     {
       System.out.println("\nInvalid Username or Password");
-      System.out.println("\nReturning to Login menu");
+      System.out.println("\nReturning to Login menu\n\n");
       return;
     }
     
@@ -95,7 +95,7 @@ public class StudentManagementSystem
             if (!input.hasNextInt()) 
             {
               System.out.println("Please enter numbers only!");
-              System.out.println("\nReturning to Student Panel\n");
+              System.out.println("\nReturning to Student Panel\n\n");
               input.nextLine();
               continue;
             }
@@ -118,7 +118,7 @@ public class StudentManagementSystem
                   return;
                 }
                 default: 
-                  System.out.println("\nInvalid Entry  Enter between 1 to 4");
+                  System.out.println("\nInvalid Entry  Enter between 1 to 4\n\n");
               }            
           }
       }
@@ -137,7 +137,7 @@ public class StudentManagementSystem
             if (!input.hasNextInt()) 
             {
               System.out.println("\nPlease enter numbers only!");
-              System.out.println("\nReturning to Admin Panel\n");
+              System.out.println("\nReturning to Admin Panel\n\n");
               input.nextLine();
               continue;
             }
@@ -161,7 +161,7 @@ public class StudentManagementSystem
                   saveToFile(); 
                   break;
                 case 6:
-                  System.out.println("\nReturning to Login Menu");
+                  System.out.println("\nReturning to Login Menu\n\n");
                   return;
                 default: 
                   System.out.println("\nInvalid Entry  Enter between 1 to 6");
@@ -171,14 +171,14 @@ public class StudentManagementSystem
   public static void stdAttendance() 
   {
     System.out.println("\n\n----------> STUDENT ATTENDANCE <----------");
-    System.out.println("\nPress Enter to return to Student Panel...");
+    System.out.println("\nPress Enter to return to Student Panel...\n\n");
     input.nextLine();
   }
   public static void stdAcademics() 
   {
     System.out.println("\n\n----------> ACADEMICS REPORT <----------");
     
-    System.out.println("\nPress Enter to return to Student Panel...");
+    System.out.println("\nPress Enter to return to Student Panel...\n\n");
     input.nextLine();  
   }
   public static void stdProfile() 
@@ -188,42 +188,42 @@ public class StudentManagementSystem
     System.out.println("\nAge : \t" + LoggedAge);
     System.out.println("\nDate Of Birth : \t" + LoggedDOB);
     System.out.println("\nRoll Number : \t" + LoggedRollNo);
-    System.out.println("\nPress Enter to return to Student Panel...");
+    System.out.println("\nPress Enter to return to Student Panel...\n\n");
     input.nextLine();
   }
   public static void addRecord() 
   {
     System.out.println("\n\n----------> ADD RECORD <----------");
     
-    System.out.println("\nPress Enter to return to Admin Panel...");
+    System.out.println("\nPress Enter to return to Admin Panel...\n\n");
     input.nextLine();
   }
   public static void viewRecord() 
   {
     System.out.println("\n\n----------> VIEW RECORD <----------");
     
-    System.out.println("\nPress Enter to return to Admin Panel...");
+    System.out.println("\nPress Enter to return to Admin Panel...\n\n");
     input.nextLine();
   }
   public static void updateRecord() 
   {
     System.out.println("\n\n----------> UPDATE RECORD <----------");
     
-    System.out.println("\nPress Enter to return to Admin Panel...");
+    System.out.println("\nPress Enter to return to Admin Panel...\n\n");
     input.nextLine();
   }
   public static void searchRecord() 
   {
     System.out.println("\n\n----------> SEARCH RECORD <----------");
     
-    System.out.println("\nPress Enter to return to Admin Panel...");
+    System.out.println("\nPress Enter to return to Admin Panel...\n\n");
     input.nextLine();
   }
   public static void saveToFile() 
   {
     System.out.println("\n\n----------> FILE SAVING <----------");
     
-    System.out.println("\nPress Enter to return to Admin Panel...");
+    System.out.println("\nPress Enter to return to Admin Panel...\n\n");
     input.nextLine();
   }
   public static void main(String[] args) 
@@ -244,7 +244,7 @@ public class StudentManagementSystem
         if (!input.hasNextInt()) 
             {
               System.out.println("\nPlease enter numbers only!");
-              System.out.println("\nReturning to Login Menu\n");
+              System.out.println("\nReturning to Login Menu\n\n");
               input.nextLine();
               continue;
             }
@@ -263,7 +263,7 @@ public class StudentManagementSystem
               return;
             }
           default:
-            System.out.println("\nInvalid Entry  Enter between 1 to 3");
+            System.out.println("\nInvalid Entry  Enter between 1 to 3\n\n");
         }
       }
   }
