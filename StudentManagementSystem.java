@@ -4,9 +4,9 @@ public class StudentManagementSystem
 {
   public static Scanner input = new Scanner(System.in);
   static String[] LoggedName = new String[100];
-  static int LoggedAge = new int[100];
+  static int[] LoggedAge = new int[100];
   public static String LoggedDOB = "";
-  static int LoggedRollNo =  new int[100];
+  static int[] LoggedRollNo =  new int[100];
   public static double LoggedCGPA = 0.0;
   static int[] attendance = new int[100];
   public static String LoggedGrade = "";
@@ -180,20 +180,32 @@ public class StudentManagementSystem
             return;
     }
         for(int i=0; i<count; i++){
+            String[] names;
             System.out.println(names[i] + " | Attendance: " + attendance[i] + "%");
         }
-    }
+    
     System.out.println("\nPress Enter to return to Student Panel...\n\n");
     input.nextLine();
-  }
+}
   public static void stdAcademics() 
   {
     System.out.println("\n\n----------> ACADEMICS REPORT <----------");
+    int count = 0;
     if(count == 0){
             System.out.println("No records available.");
             return;
     }
     System.out.printf("%-15s %-10s %-12s %-10s %-10s\n", "Name", "Marks", "Percentage", "Grade", "CGPA");
+    for(int i=0; i<count; i++){
+            int[] marks = null;
+            int mark = marks[i];
+            double percentage = mark; 
+            String grade = calculateGrade(mark);
+            double cgpa = calculateCGPA(mark);
+            Object[] names = null;
+            System.out.printf("%-15s %-10d %-12.2f %-10s %-10.2f\n", names[i], mark, percentage, grade, cgpa);
+        }
+    
     
     System.out.println("\nPress Enter to return to Student Panel...\n\n");
     input.nextLine();  
