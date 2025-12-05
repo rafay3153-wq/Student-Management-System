@@ -255,6 +255,16 @@ public class StudentManagementSystem
     System.out.println("\nPress Enter to return to Admin Panel...\n\n");
     input.nextLine();
   }
+  public static int safeIntInput(){
+        while(true){
+            try{
+                return input.nextInt();
+            }catch(Exception e){
+                System.out.print("Invalid input! Enter again: ");
+                input.nextLine();
+            }
+        }
+    }
   public static void main(String[] args) 
   {
     while(true)
