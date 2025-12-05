@@ -1,13 +1,16 @@
+import java.io.*;
 import java.util.*;
 public class StudentManagementSystem 
 {
-  public static String LoggedName = "";
-  public static int LoggedAge = 0;
-  public static String LoggedDOB = "";
-  public static int LoggedRollNo = 0;
-  public static double LoggedCGPA = 0.0;
-  public static String LoggedGrade = "";
   public static Scanner input = new Scanner(System.in);
+  static String[] LoggedName = new String[100];
+  static int LoggedAge = new int[100];
+  public static String LoggedDOB = "";
+  static int LoggedRollNo =  new int[100];
+  public static double LoggedCGPA = 0.0;
+  static int[] attendance = new int[100];
+  public static String LoggedGrade = "";
+  static int count=0;
   public static void stdLogin()
   {
     input.nextLine();  
@@ -21,6 +24,7 @@ public class StudentManagementSystem
     System.out.println();
     System.out.println("PASSWORD : ");
     String stdpass = input.nextLine();
+    
     if( stdname.equals("FA25-BDS-045") && stdpass.equals("28076") )
     {
       LoggedName = "Shehryar Khurram";
@@ -171,12 +175,25 @@ public class StudentManagementSystem
   public static void stdAttendance() 
   {
     System.out.println("\n\n----------> STUDENT ATTENDANCE <----------");
+    if(count == 0){
+            System.out.println("No records available.");
+            return;
+    }
+        for(int i=0; i<count; i++){
+            System.out.println(names[i] + " | Attendance: " + attendance[i] + "%");
+        }
+    }
     System.out.println("\nPress Enter to return to Student Panel...\n\n");
     input.nextLine();
   }
   public static void stdAcademics() 
   {
     System.out.println("\n\n----------> ACADEMICS REPORT <----------");
+    if(count == 0){
+            System.out.println("No records available.");
+            return;
+    }
+    System.out.printf("%-15s %-10s %-12s %-10s %-10s\n", "Name", "Marks", "Percentage", "Grade", "CGPA");
     
     System.out.println("\nPress Enter to return to Student Panel...\n\n");
     input.nextLine();  
