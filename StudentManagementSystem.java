@@ -14,8 +14,10 @@ public class StudentManagementSystem
     static int[] marks = new int[100];
     static int[] attendance = new int[100];
     static String[] names = new String[100];
-    static double[] cgpas = new double[100];
-    static String[] grades = new String[100];
+    static double[] cgpa = new double[100];
+    static String[] grade = new String[100];
+    static int[] ages = new int[100];
+    static int[] ids = new int[100];
     static String [] username = new String [4];
     static String [] password = new String [4];
 
@@ -131,6 +133,7 @@ public class StudentManagementSystem
             System.out.println("Error : " + e.getMessage());
           }
         }
+        stdPanel();
     }
     public static void admLogin()
     {
@@ -238,6 +241,7 @@ public class StudentManagementSystem
             System.out.println("Error : " + e.getMessage());
           }
         }
+        admPanel();
     }
     public static void stdPanel()
     {
@@ -335,7 +339,6 @@ public class StudentManagementSystem
         }
             for(int i=0; i<count; i++)
             {
-                String[] names;
                 System.out.println(names[i] + " | Attendance: " + attendance[i] + "%");
             }
         
@@ -353,13 +356,10 @@ public class StudentManagementSystem
         System.out.printf("%-15s %-10s %-12s %-10s %-10s\n", "Name", "Marks", "Percentage", "Grade", "CGPA");
         for(int i=0; i<count; i++)
         {
-            int[] marks = null;
-            int mark = marks[i];
-            double percentage = mark; 
-            String grade = calculateGrade(mark);
-            double cgpa = calculateCGPA(mark);
-            Object[] names = null;
-            System.out.printf("%-15s %-10d %-12.2f %-10s %-10.2f\n", names[i], mark, percentage, grade, cgpa);
+            double percentage = marks[i]; 
+            grade[i] = calculateGrade(marks[i]);
+            cgpa[i] = calculateCGPA(marks[i]);
+            System.out.printf("%-15s %-10d %-12.2f %-10s %-10.2f\n", names[i], marks[i], percentage, grade[i], cgpa[i]);
         }
         
         
@@ -379,37 +379,75 @@ public class StudentManagementSystem
     public static void addRecord() 
     {
         System.out.println("\n\n----------> ADD RECORD <----------");
-        
-        System.out.println("\nPress Enter to return to Admin Panel...\n\n");
-        input.nextLine();
+        System.out.print("Enter Student Name: ");
+        String name =input.nextLine();
+        System.out.print("Enter Age(18-25): ");
+        int age=input.nextInt();
+        if(age<18 || age>25)
+        {
+            System.out.println("Invalid Age! Record not added.");
+            return;
+        }
+        System.out.print("Enter Marks(0-100): ");
+        int mark=input.nextInt();
+        if(mark<0 || mark>100)
+        {
+            System.out.println("Invalid Marks! Record not added.");
+            return;
+        }
+        System.out.print("Enter ID: ");
+        int id=input.nextInt();
+        names[count]=name;
+        ages[count]=age;
+        marks[count]=mark;
+        ids[count]=id;
+        count++;
+        System.out.println("Record added successfully!");
     }
     public static void viewRecord() 
     {
-        System.out.println("\n\n----------> VIEW RECORD <----------");
-        
-        System.out.println("\nPress Enter to return to Admin Panel...\n\n");
-        input.nextLine();
+        System.out.println("\n\n----------> STUDENT RECORDS <----------");
+        if(count ==0) {
+            System.out.println("No records available.");
+            return;
+        }
+        for (int i=0;i<count;i++) 
+        {
+           System.out.println((i+1) + ". " + names[i] + " | Age: " + ages[i] + " | Marks: " + marks[i] + " | ID: " + ids[i]);
+        }
     }
     public static void updateRecord() 
     {
         System.out.println("\n\n----------> UPDATE RECORD <----------");
-        
+        System.out.print("Enter Student ID to update: ");
+        int id=input.nextInt();
+
         System.out.println("\nPress Enter to return to Admin Panel...\n\n");
         input.nextLine();
     }
     public static void searchRecord() 
     {
         System.out.println("\n\n----------> SEARCH RECORD <----------");
-        
+        System.out.print("Enter Student ID to search: ");
+        int id=input.nextInt();
         System.out.println("\nPress Enter to return to Admin Panel...\n\n");
         input.nextLine();
     }
     public static void saveToFile() 
     {
         System.out.println("\n\n----------> FILE SAVING <----------");
-        
-        System.out.println("\nPress Enter to return to Admin Panel...\n\n");
-        input.nextLine();
+        try {
+            FileWriter fw = new FileWriter("students.txt");
+            for (int i = 0; i < count; i++) {
+                writer.write("Name: " + names[i] + ", Age: " + ages[i] + ", Marks: " + marks[i] + ", ID: " + ids[i] + "\n");
+            }
+            fw.close();
+            System.out.println("Data Saved Successfully!");
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving data: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error saving file!" + e.getMessage());
+        }   
     }
     public static int safeIntInput()
     {
