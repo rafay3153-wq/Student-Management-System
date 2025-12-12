@@ -10,6 +10,9 @@ public class StudentManagementSystem2
     public static int LoggedAttendance = 0;
     public static String LoggedGrade = "";
     static int count=0;
+    static String [] username = new String [4];
+    static String [] password = new String [4];
+
     public static void stdLogin()
     {
         input.nextLine();  
@@ -23,21 +26,22 @@ public class StudentManagementSystem2
         System.out.println();
         System.out.println("PASSWORD : ");
         String stdpass = input.nextLine();
-        boolean noerror = false;
-        while(!noerror)
+        boolean noerrorstd = false;
+        while(!noerrorstd)
         {
           try
           {
             File file = new File("usernames.txt");
             Scanner reader = new Scanner(file);
             int i = 0;
-            String [] username = new String [2];
-            while(reader.hasNextLine() && i < username.length)
+            
+            while(reader.hasNextLine() &&  i < 2)
             {
                 username [i] =  reader.nextLine();
                 i++;
             }
-            noerror = true;
+            reader.close();
+            noerrorstd = true;
           }
         catch(FileNotFoundException e)
         {
@@ -53,20 +57,22 @@ public class StudentManagementSystem2
         }
       }
         
-      boolean noerrorpass = false;
-      while(!noerrorpass)
+      boolean noerrorpassstd = false;
+      while(!noerrorpassstd)
       {
         try
         {
             File newfile = new File("passwords.txt");
             Scanner readerpass = new Scanner(newfile);
             int j = 0;
-            String [] password = new String [2];
-            while(readerpass.hasNextLine() && j < password.length)
+            
+            while(readerpass.hasNextLine() &&  j < 2)
             {
                 password [j] =  readerpass.nextLine();
                 j++;
-            } 
+            }
+            readerpass.close();
+            noerrorpassstd = true;
         }
         catch(FileNotFoundException e)
         {
@@ -133,25 +139,99 @@ public class StudentManagementSystem2
         System.out.println();
         System.out.println("PASSWORD : ");
         String admpass = input.nextLine();
-        if( admname.equals("teacher1") && admpass.equals("0011") )
+        boolean noerroradm = false;
+        while(!noerroradm)
         {
-            System.out.println("Admin Login Successful!");
-            System.out.println("Welcome Teacher1");
-            admPanel();
-        }
-        else if( admname.equals("teacher2") && admpass.equals("3322") )
+          try
+          {
+            File file = new File("usernames.txt");
+            Scanner reader = new Scanner(file);
+            reader.nextLine();
+            reader.nextLine();
+            int p = 2;
+            while(reader.hasNextLine() && p < 4)
+            {
+                username [p] =  reader.nextLine();
+                p++;
+            }
+            reader.close();
+            noerroradm = true;
+          }
+        catch(FileNotFoundException e)
         {
-            System.out.println("Admin Login Successful!");
-            System.out.println("Welcome Teacher2");
-            admPanel();
+            System.out.println("Error File Not Found: " + e.getMessage());
         }
-        else
+        catch(IOException ex)
         {
-            System.out.println("\nInvalid Username or Password");
-            System.out.println("\nReturning to Login menu\n\n");
-            return;
+            System.out.println("Error During Reading The File: " + ex.getMessage());
         }
+        catch(Exception ex)
+        {
+            System.out.println("Error : " + ex.getMessage());
+        }
+      }
         
+      boolean noerrorpassadm = false;
+      while(!noerrorpassadm)
+      {
+        try
+        {
+            File newfile = new File("passwords.txt");
+            Scanner readerpass = new Scanner(newfile);
+            readerpass.nextLine();
+            readerpass.nextLine();
+            int k = 2;
+            while(readerpass.hasNextLine() &&  k < 4)
+            {
+                password [k] =  readerpass.nextLine();
+                k++;
+            }
+            readerpass.close();
+            noerrorpassadm = true; 
+        }
+        catch(FileNotFoundException e)
+        {
+            System.out.println("Error File Not Found: " + e.getMessage());
+        }
+        catch(IOException ex)
+        {
+            System.out.println("Error During Reading The File: " + ex.getMessage());
+        }
+        catch(Exception ex)
+        {
+            System.out.println("Error : " + ex.getMessage());
+        }
+      }
+        boolean admerror = false;
+        while(!admerror)
+        {
+          try
+          {
+            if( admname.equals(username[2]) && admpass.equals(password[2])) 
+            {
+              System.out.println("Admin Login Successful!");
+              System.out.println("Welcome Teacher 1");
+              admPanel();
+            }
+            else if( admname.equals(username[3]) && admpass.equals(password[3]) )
+            {
+              System.out.println("Admin Login Successful!");
+              System.out.println("Welcome Teacher 2");
+              admPanel();
+            }
+            else
+            {
+              System.out.println("\nInvalid Username or Password");
+              System.out.println("\nReturning to Login menu\n\n");
+              return;
+            }
+          admerror = true;
+          }
+          catch(Exception e)
+          {
+            System.out.println("Error : " + e.getmessage());
+          }
+        }
     }
     public static void stdPanel()
     {
