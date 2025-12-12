@@ -10,9 +10,16 @@ public class StudentManagementSystem
     public static double LoggedCGPA = 0.0;
     public static int LoggedAttendance = 0;
     public static String LoggedGrade = "";
+    static int count=0;
+    static int[] marks = new int[100];
+    static int[] attendance = new int[100];
+    static String[] names = new String[100];
+    static double[] cgpa = new double[100];
+    static String[] grade = new String[100];
+    static int[] ages = new int[100];
+    static int[] ids = new int[100];
     static String [] username = new String [4];
     static String [] password = new String [4];
-    static int[] attendance = new int[2];
 
     public static void stdLogin()
     {
@@ -238,116 +245,103 @@ public class StudentManagementSystem
     }
     public static void stdPanel()
     {
-        boolean noerrorstdpanel = false;
-        while(!noerrorstdpanel)
+        while(true)
         {
-            try
+            System.out.println("\n\n----------> STUDENT PANEL <----------");
+            System.out.println("--- 1. View Attendance ---");
+            System.out.println("--- 2. View Acadamics Report ---");
+            System.out.println("--- 3. View Profile ---");
+            System.out.println("--- 4. Log out ---");
+            System.out.println("\nEnter your choice ( 1 to 4 ) : ");
+            if (!input.hasNextInt()) 
             {
-                System.out.println("\n\n----------> STUDENT PANEL <----------");
-                System.out.println("--- 1. View Attendance ---");
-                System.out.println("--- 2. View Acadamics Report ---");
-                System.out.println("--- 3. View Profile ---");
-                System.out.println("--- 4. Log out ---");
-                System.out.println("\nEnter your choice ( 1 to 4 ) : ");
+                System.out.println("Please enter numbers only!");
+                System.out.println("\nReturning to Student Panel\n\n");
                 input.nextLine();
-                int choice = input.nextInt();
-                input.nextLine();  
-                switch(choice) 
+                continue;
+            }
+            int choice = input.nextInt();
+            input.nextLine();  
+            switch(choice) 
+            {
+                case 1: 
+                    stdAttendance(); 
+                    break;
+                case 2: 
+                    stdAcademics(); 
+                    break;
+                case 3: 
+                    stdProfile(); 
+                    break;
+                case 4:
                 {
-                    case 1: 
-                        stdAttendance(); 
-                        break;
-                    case 2: 
-                        stdAcademics(); 
-                        break;
-                    case 3: 
-                        stdProfile(); 
-                        break;
-                    case 4:
-                    {
-                        System.out.println("\nReturning to Login Menu");
-                        return;
-                    }
-                    default: 
-                        System.out.println("\nInvalid Entry  Enter between 1 to 4\n\n");
+                    System.out.println("\nReturning to Login Menu");
+                    return;
                 }
-            }
-            catch(InputMismatchException e)
-            {
-                System.out.println("Error Invalid Entry : " + e.getMessage());
-            }
-            catch(Exception e)
-            {
-                System.out.println("Unexpected Error : " + e.getMessage());
-            }
+                default: 
+                    System.out.println("\nInvalid Entry  Enter between 1 to 4\n\n");
+            }            
         }
     }
     public static void admPanel() 
     {
-        boolean noerroradmpanel = false;
-        while(!noerroradmpanel)
+        while(true)
         {
-            try
+            System.out.println("\n\n----------> ADMIN PANEL <----------");
+            System.out.println("--- 1. Add Student Record ---");
+            System.out.println("--- 2. View All Student Records ---");
+            System.out.println("--- 3. Update Student Details ---");
+            System.out.println("--- 4. Search Student Records ---");
+            System.out.println("--- 5. Save Records to File ---");
+            System.out.println("--- 6. Logout ---");
+            System.out.println("\nEnter your choice ( 1 to 6 ) : ");
+            if (!input.hasNextInt()) 
             {
-                System.out.println("\n\n----------> ADMIN PANEL <----------");
-                System.out.println("--- 1. Add Student Record ---");
-                System.out.println("--- 2. View All Student Records ---");
-                System.out.println("--- 3. Update Student Details ---");
-                System.out.println("--- 4. Search Student Records ---");
-                System.out.println("--- 5. Save Records to File ---");
-                System.out.println("--- 6. Logout ---");
-                System.out.println("\nEnter your choice ( 1 to 6 ) : ");
+                System.out.println("\nPlease enter numbers only!");
+                System.out.println("\nReturning to Admin Panel\n\n");
                 input.nextLine();
-                int choice = input.nextInt();
-                input.nextLine();  
-                switch(choice) 
-                {
-                    case 1: 
-                        addRecord(); 
-                        break;
-                    case 2: 
-                        viewRecord(); 
-                        break;
-                    case 3: 
-                        updateRecord(); 
-                        break;
-                    case 4: 
-                        searchRecord(); 
-                        break;
-                    case 5: 
-                        saveToFile(); 
-                        break;
-                    case 6:
-                        System.out.println("\nReturning to Login Menu\n\n");
-                        return;
-                    default: 
-                        System.out.println("\nInvalid Entry  Enter between 1 to 6");
-                }
+                continue;
             }
-            catch(InputMismatchException e)
+            int choice = input.nextInt();
+            input.nextLine();  
+            switch(choice) 
             {
-                System.out.println("Error Invalid Entry : " + e.getMessage());
-            }
-            catch(Exception e)
-            {
-                System.out.println("Unexpected Error : " + e.getMessage());
-            }
+                case 1: 
+                    addRecord(); 
+                    break;
+                case 2: 
+                    viewRecord(); 
+                    break;
+                case 3: 
+                    updateRecord(); 
+                    break;
+                case 4: 
+                    searchRecord(); 
+                    break;
+                case 5: 
+                    saveToFile(); 
+                    break;
+                case 6:
+                    System.out.println("\nReturning to Login Menu\n\n");
+                    return;
+                default: 
+                    System.out.println("\nInvalid Entry  Enter between 1 to 6");
+            }            
         }
     }
     public static void stdAttendance() 
     {
         System.out.println("\n\n----------> STUDENT ATTENDANCE <----------");
-        int index;
-        if(LoggedRollNo == 45)
+        if(count == 0)
         {
-            index = 0;
-            System.out.println("\n\nShehryars Attendance: " + attendance[index] + " days present");
+            System.out.println("No records available.");
+            return;
         }
-        else
-        {
-            index = 1;
-            System.out.println("\n\nRafays Attendance: " + attendance[index] + " days present");
-        }
+            for(int i=0; i<count; i++)
+            {
+                System.out.println(names[i] + " | Attendance: " + attendance[i] + "%");
+            }
+        
         System.out.println("\nPress Enter to return to Student Panel...\n\n");
         input.nextLine();
     }
@@ -391,136 +385,43 @@ public class StudentManagementSystem
         System.out.println("\nPress Enter to return to Student Panel...\n\n");
         input.nextLine();
     }
-    public static void saveAttendance() 
-    {
-        try 
-        {
-            FileWriter file = new FileWriter("attendance.txt");
-            file.write(attendance[0] + "\n" + attendance[1]);
-            file.close();
-        } 
-        catch (IOException e) 
-        {
-            System.out.println("Error saving attendance: " + e.getMessage());
-        }
-        catch(Exception e)
-        {
-            System.out.println("Error saving attendance: " + e.getMessage());
-        }
-    }
     public static void addRecord() 
     {
-        boolean noerrorrecord = false;
-        while(!noerrorrecord)
+        System.out.println("\n\n----------> ADD RECORD <----------");
+        System.out.print("Enter Student Name: ");
+        String name =input.nextLine();
+        System.out.print("Enter Age(18-25): ");
+        int age=input.nextInt();
+        if(age<18 || age>25)
         {
-            try
-            {
-                System.out.println("\n\n----------> ADD RECORD <----------");
-                System.out.println("\n\n---1. Attendance---");
-                System.out.println("---2. Marks---");
-                System.out.println("---3. Exit---");
-                System.out.println("\nEnter Number 1, 2 or 3");
-                int choicerecord = input.nextInt();
-                switch(choicerecord)
-                {
-                    case 1:
-                        addattendance();
-                        break;
-                    case 2:
-                        addmarks();
-                        break;
-                    case 3:
-                        System.out.println("Returning to Admin Panel");
-                        return;
-                    default:
-                        System.out.println("Enter 1 , 2 or 3 for exit");
-                }
-                noerrorrecord = true;
-            }
-            catch(InputMismatchException e)
-            {
-                System.out.println("Error while Entering Name : " + e.getMessage());
-            }
-            
+            System.out.println("Invalid Age! Record not added.");
+            return;
         }
-        System.out.println("\nPress Enter to return to Admin Panel...\n\n");
-        input.nextLine();
-    }
-    public static void addattendance()
-    {
-        boolean noerroratd = false;
-        while(!noerroratd)
+        System.out.print("Enter Marks(0-100): ");
+        int mark=input.nextInt();
+        if(mark<0 || mark>100)
         {
-            try
-            {
-                System.out.println("\n\n----------> ADD ATTENDANCE <----------");
-                System.out.println("\n\n1. Shehryar");
-                System.out.println("2. Rafay");
-                System.out.println("3. Exit");
-                System.out.println("\nEnter Number 1, 2 or 3");
-                input.nextLine();
-                int choiceatd = input.nextInt();
-                input.nextLine();
-                switch(choiceatd)
-                {
-                    case 1:
-                        markAttendance(0, "Shehryar");
-                        break;
-                    case 2:
-                        markAttendance(1, "Rafay");
-                        break;
-                    case 3:
-                        System.out.println("Returning to Admin Panel");
-                        return;
-                    default:
-                        System.out.println("Enter 1 , 2 or 3 for exit");
-                }
-                noerroratd = true;
-            }
-            catch(InputMismatchException e)
-            {
-                System.out.println("Error while Entering Name : " + e.getMessage());
-            }
-            catch(Exception e)
-            {
-                System.out.println("Unexpected Error : " + e.getMessage());
-            }
+            System.out.println("Invalid Marks! Record not added.");
+            return;
         }
-    }
-    public static void markAttendance(int index, String name) 
-    {
-        boolean noerrormark = false;
-        while(!noerrormark)
+        System.out.print("Enter Attendance(0-100): ");
+        int attend=input.nextInt();
+        if(attend<0 || attend>100)
         {
-            try
-            {
-                System.out.print("\n\nIs " + name + " present? (Y/N): \n");
-                String choicemark = input.nextLine();
-                if (choicemark.equalsIgnoreCase("Y") || choicemark.equalsIgnoreCase("Yes")) 
-                {
-                    attendance[index]++;
-                    saveAttendance();
-                    System.out.println("\n" + name + " is marked present");
-                } 
-                else if (choicemark.equalsIgnoreCase("N") || choicemark.equalsIgnoreCase("No"))
-                {
-                    System.out.println("\n" + name + " is marked absent");
-                }
-                else
-                {
-                    System.out.println( "\nInvalid Entry");
-                }
-                noerrormark = true;
-            }
-            catch(InputMismatchException e)
-            {
-                System.out.println("\nError while Entering : " + e.getMessage());
-            }
-            catch(Exception e)
-            {
-                System.out.println("\nUnexpected Error : " + e.getMessage());
-            }
+            System.out.println("Invalid Attendance! Record not added.");
+            return;
         }
+        System.out.print("Enter ID: ");
+        int id=input.nextInt();
+        names[count]=name;
+        ages[count]=age;
+        marks[count]=mark;
+        attendance[count]=attend;
+        ids[count]=id;
+        grade[count]=calculateGrade(mark);
+        cgpa[count]=calculateCGPA(mark);
+        count++;
+        System.out.println("Record added successfully!");
     }
     public static void viewRecord() 
     {
@@ -626,8 +527,6 @@ public static double calculateCGPA(int marks)
         {
             File userFile = new File("usernames.txt");
             File passFile = new File("passwords.txt");
-            File attendFile = new File("attendance.txt");
-
             if (!userFile.exists()) 
             {
                 userFile.createNewFile();
@@ -643,30 +542,10 @@ public static double calculateCGPA(int marks)
                 writer.write("28076\n1122\n0011\n1234");
                 writer.close();
             }
-
-            if (!attendFile.exists()) 
-            {
-                attendFile.createNewFile();
-                FileWriter writer = new FileWriter(attendFile);
-                writer.write("0\n0"); 
-                writer.close();
-            }
-            Scanner reader = new Scanner(attendFile);
-            int i = 0;
-            while(reader.hasNextInt() && i < 2) 
-            {
-                attendance[i] = reader.nextInt();
-                i++;
-            }
-            reader.close();
         } 
         catch (IOException e) 
         {
             System.out.println("Error initializing files: " + e.getMessage());
-        }
-        catch(Exception e)
-        {
-            System.out.println("Unexpected Error initializing files: " + e.getMessage());
         }
     }
     public static void main(String[] args) 
