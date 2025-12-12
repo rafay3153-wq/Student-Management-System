@@ -2,6 +2,7 @@ import java.io.*;
 import java.util.*;
 public class StudentManagementSystem2 
 {
+    public static Scanner input = new Scanner(System.in);
     public static String LoggedName = "";
     public static int LoggedAge = 0;
     public static String LoggedDOB = "";
@@ -122,7 +123,7 @@ public class StudentManagementSystem2
           }
           catch(Exception e)
           {
-            System.out.println("Error : " + e.getmessage());
+            System.out.println("Error : " + e.getMessage());
           }
         }
     }
@@ -229,96 +230,96 @@ public class StudentManagementSystem2
           }
           catch(Exception e)
           {
-            System.out.println("Error : " + e.getmessage());
+            System.out.println("Error : " + e.getMessage());
           }
         }
     }
     public static void stdPanel()
     {
         while(true)
-            {
-                System.out.println("\n\n----------> STUDENT PANEL <----------");
-                System.out.println("--- 1. View Attendance ---");
-                System.out.println("--- 2. View Acadamics Report ---");
-                System.out.println("--- 3. View Profile ---");
-                System.out.println("--- 4. Log out ---");
-                System.out.println("\nEnter your choice ( 1 to 4 ) : ");
-                if (!input.hasNextInt()) 
-                {
-                    System.out.println("Please enter numbers only!");
-                    System.out.println("\nReturning to Student Panel\n\n");
-                    input.nextLine();
-                    continue;
-                }
-                int choice = input.nextInt();
-                input.nextLine();  
-                switch(choice) 
-                {
-                    case 1: 
-                        stdAttendance(); 
-                        break;
-                    case 2: 
-                        stdAcademics(); 
-                        break;
-                    case 3: 
-                        stdProfile(); 
-                        break;
-                    case 4:
-                    {
-                        System.out.println("\nReturning to Login Menu");
-                        return;
-                    }
-                    default: 
-                        System.out.println("\nInvalid Entry  Enter between 1 to 4\n\n");
-                }            
-            }
-        }
-    public static void admPanel() 
         {
-            while(true)
+            System.out.println("\n\n----------> STUDENT PANEL <----------");
+            System.out.println("--- 1. View Attendance ---");
+            System.out.println("--- 2. View Acadamics Report ---");
+            System.out.println("--- 3. View Profile ---");
+            System.out.println("--- 4. Log out ---");
+            System.out.println("\nEnter your choice ( 1 to 4 ) : ");
+            if (!input.hasNextInt()) 
             {
-                System.out.println("\n\n----------> ADMIN PANEL <----------");
-                System.out.println("--- 1. Add Student Record ---");
-                System.out.println("--- 2. View All Student Records ---");
-                System.out.println("--- 3. Update Student Details ---");
-                System.out.println("--- 4. Search Student Records ---");
-                System.out.println("--- 5. Save Records to File ---");
-                System.out.println("--- 6. Logout ---");
-                System.out.println("\nEnter your choice ( 1 to 6 ) : ");
-                if (!input.hasNextInt()) 
-                {
-                    System.out.println("\nPlease enter numbers only!");
-                    System.out.println("\nReturning to Admin Panel\n\n");
-                    input.nextLine();
-                    continue;
-                }
-                int choice = input.nextInt();
-                input.nextLine();  
-                switch(choice) 
-                {
-                    case 1: 
-                        addRecord(); 
-                        break;
-                    case 2: 
-                        viewRecord(); 
-                        break;
-                    case 3: 
-                        updateRecord(); 
-                        break;
-                    case 4: 
-                        searchRecord(); 
-                        break;
-                    case 5: 
-                        saveToFile(); 
-                        break;
-                    case 6:
-                        System.out.println("\nReturning to Login Menu\n\n");
-                        return;
-                    default: 
-                        System.out.println("\nInvalid Entry  Enter between 1 to 6");
-                }            
+                System.out.println("Please enter numbers only!");
+                System.out.println("\nReturning to Student Panel\n\n");
+                input.nextLine();
+                continue;
             }
+            int choice = input.nextInt();
+            input.nextLine();  
+            switch(choice) 
+            {
+                case 1: 
+                    stdAttendance(); 
+                    break;
+                case 2: 
+                    stdAcademics(); 
+                    break;
+                case 3: 
+                    stdProfile(); 
+                    break;
+                case 4:
+                {
+                    System.out.println("\nReturning to Login Menu");
+                    return;
+                }
+                default: 
+                    System.out.println("\nInvalid Entry  Enter between 1 to 4\n\n");
+            }            
         }
+    }
+    public static void admPanel() 
+    {
+        while(true)
+        {
+            System.out.println("\n\n----------> ADMIN PANEL <----------");
+            System.out.println("--- 1. Add Student Record ---");
+            System.out.println("--- 2. View All Student Records ---");
+            System.out.println("--- 3. Update Student Details ---");
+            System.out.println("--- 4. Search Student Records ---");
+            System.out.println("--- 5. Save Records to File ---");
+            System.out.println("--- 6. Logout ---");
+            System.out.println("\nEnter your choice ( 1 to 6 ) : ");
+            if (!input.hasNextInt()) 
+            {
+                System.out.println("\nPlease enter numbers only!");
+                System.out.println("\nReturning to Admin Panel\n\n");
+                input.nextLine();
+                continue;
+            }
+            int choice = input.nextInt();
+            input.nextLine();  
+            switch(choice) 
+            {
+                case 1: 
+                    addRecord(); 
+                    break;
+                case 2: 
+                    viewRecord(); 
+                    break;
+                case 3: 
+                    updateRecord(); 
+                    break;
+                case 4: 
+                    searchRecord(); 
+                    break;
+                case 5: 
+                    saveToFile(); 
+                    break;
+                case 6:
+                    System.out.println("\nReturning to Login Menu\n\n");
+                    return;
+                default: 
+                    System.out.println("\nInvalid Entry  Enter between 1 to 6");
+            }            
+        }
+    }
     public static void stdAttendance() 
     {
         System.out.println("\n\n----------> STUDENT ATTENDANCE <----------");
@@ -421,44 +422,79 @@ public class StudentManagementSystem2
             }
         }
     }
+    public static void filesinitialize() 
+    {
+        try 
+        {
+            File userFile = new File("usernames.txt");
+            File passFile = new File("passwords.txt");
+            if (!userFile.exists()) 
+            {
+                userFile.createNewFile();
+                FileWriter writer = new FileWriter(userFile);
+                writer.write("FA25-BDS-045\nFA25-BDS-035\nteacher1\nteacher2");
+                writer.close();
+            }
+            
+            if (!passFile.exists()) 
+            {
+                passFile.createNewFile();
+                FileWriter writer = new FileWriter(passFile);
+                writer.write("28076\n1122\n0011\n1234");
+                writer.close();
+            }
+        } 
+        catch (IOException e) 
+        {
+            System.out.println("Error initializing files: " + e.getMessage());
+        }
+    }
     public static void main(String[] args) 
     {
         while(true)
         {
+            filesinitialize();
             System.out.println("----------> STUDENT MANAGEMENT SYSTEM <----------");
             System.out.println("----------> SHEHRYAR KHURRAM FA25-BDS-045 <----------");
             System.out.println("----------> MUHAMMAD RAFAY FA25-BDS-035 <----------");
             System.out.println();
             System.out.println();
             System.out.println();
-            System.out.println("----------> LOGIN MENU <----------");
-            System.out.println("--- 1. STUDENT LOGIN ---");
-            System.out.println("--- 2. ADMIN LOGIN ---");
-            System.out.println("--- 3. EXIT ---");
-            System.out.println("\nEnter your choice ( 1 to 3 ) : ");
-            if (!input.hasNextInt()) 
-                {
-                    System.out.println("\nPlease enter numbers only!");
-                    System.out.println("\nReturning to Login Menu\n\n");
-                    input.nextLine();
-                    continue;
-                }
-            int choice = input.nextInt();
-            switch(choice)
+            boolean noerrormain = false;
+            while(!noerrormain)
             {
-            case 1:
-                stdLogin();
-                break;
-            case 2:
-                admLogin();
-                break;
-            case 3:
+                try
                 {
-                System.out.println("\nExiting The Program");
-                return;
+                    System.out.println("----------> LOGIN MENU <----------");
+                    System.out.println("--- 1. STUDENT LOGIN ---");
+                    System.out.println("--- 2. ADMIN LOGIN ---");
+                    System.out.println("--- 3. EXIT ---");
+                    System.out.println("\nEnter your choice ( 1 to 3 ) : ");
+                    
+                    int choice = input.nextInt();
+                    switch(choice)
+                    {
+                        case 1:
+                            stdLogin();
+                            break;
+                        case 2:
+                            admLogin();
+                            break;
+                        case 3:
+                        {
+                            System.out.println("\nExiting The Program");
+                            return;
+                        }
+                        default:
+                            System.out.println("\nInvalid Entry  Enter between 1 to 3\n\n");
+                    }
+                    noerrormain = true;
                 }
-            default:
-                System.out.println("\nInvalid Entry  Enter between 1 to 3\n\n");
+                catch(InputMismatchException e)
+                {
+                    System.out.println("Error Invalid Entry   : " + e.getMessage());
+                    input.nextLine();
+                }      
             }
         }
     }
