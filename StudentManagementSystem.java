@@ -336,12 +336,22 @@ public class StudentManagementSystem
         {
             System.out.println("No records available.");
             return;
-        }
+        }   
+            int index=-1;
             for(int i=0; i<count; i++)
             {
-                System.out.println(names[i] + " | Attendance: " + attendance[i] + "%");
+                if(names[i].equalsIgnoreCase(LoggedName))
+                {
+                    index=i;
+                    break;
+                }
             }
-        
+            if(index==-1) {
+                System.out.println("Attendance record for logged in student not found.");
+            }
+            else {
+                System.out.println(LoggedName + "| Attendance: "+ attendance[index] + "%"); 
+            }
         System.out.println("\nPress Enter to return to Student Panel...\n\n");
         input.nextLine();
     }
@@ -413,6 +423,14 @@ public class StudentManagementSystem
         }
         System.out.print("Enter ID: ");
         int id=input.nextInt();
+        for(int i=0;i<count;i++)
+        {
+            if(ids[i]==id)
+            {
+                System.out.println("ID already exists! Record not added.");
+                return;
+            }
+        }
         names[count]=name;
         ages[count]=age;
         marks[count]=mark;
@@ -453,23 +471,73 @@ public class StudentManagementSystem
             System.out.println("Student with ID " + id + " not found!");
             return;
         }
+        System.out.println("Current Record:");
+        System.out.printf("Name: %s, Age: %d, Marks: %d, Attendance: %d, Grade: %s, CGPA: %.2f\n", names[index], ages[index], marks[index], attendance[index], grade[index], cgpa[index]);
+        input.nextLine();
+        System.out.print("Enter new Name(press Enter to keep current): ");
+        String name = input.nextLine();
+        if(!name.isEmpty()) {
+            names[index] = name;
+        }
+        System.out.print("Enter new Age(18-25, 0 to keep current): ");
+        int newAge=input.nextInt();
+        if(newAge!=0) {
+            if(newAge>=18 && newAge<=25) {
+                ages[index] = newAge;
+            } else {
+                System.out.println("Invalid Age! Keeping current age.");
+            }
     }
+    System.out.print("Enter new Attendance(0-100, -1 to keep current): ");
+    int newAttend=input.nextInt();
+    if(newAttend!=-1) {
+        if(newAttend>=0 && newAttend<=100) {
+            attendance[index] = newAttend;
+        } else {
+            System.out.println("Invalid Attendance! Keeping current attendence.");
+        }
+    }
+    System.out.print("Enter new Marks(0-100, -1 to keep current): ");
+    int newMarks=input.nextInt();
+    if(newMarks!=-1) {
+        if(newMarks>=0 && newMarks<=100) {
+            marks[index] = newMarks;
+            grade[index] = calculateGrade(newMarks);
+            cgpa[index] = calculateCGPA(newMarks);
+        } else {
+            System.out.println("Invalid Marks! Keeping current marks.");
+        }
+    }
+    System.out.println("Record updated successfully!");
+}
     public static void searchRecord() 
     {
         System.out.println("\n\n----------> SEARCH RECORD <----------");
         System.out.print("Enter Student ID to search: ");
         int id=input.nextInt();
-        System.out.println("\nPress Enter to return to Admin Panel...\n\n");
         input.nextLine();
-    }
+        boolean found = false;
+        for (int i=0;i<count;i++) {
+            if(ids[i]==id) {
+                System.out.println("\nRecord Found:");
+                System.out.printf("ID: %d, Name: %s, Age: %d, Marks: %d, Attendance: %d, Grade: %s, CGPA: %.2f\n", ids[i], names[i], ages[i], marks[i], attendance[i], grade[i], cgpa[i]);
+                found = true;
+                break;
+                }
+            }
+            if(!found) {
+                System.out.println("Student with ID " + id + " not found!" );
+            }
+            System.out.println("\nPress Enter to return to Admin Panel...\n\n");
+            input.nextLine();
+        }
     public static void saveToFile() 
     {
         System.out.println("\n\n----------> FILE SAVING <----------");
         try {
             FileWriter fw = new FileWriter("students.txt");
             for (int i = 0; i < count; i++) {
-                fw.write("Name: " + names[i] + ", Age: " + ages[i] + ", Marks: " + marks[i] + ", ID: " + ids[i] + "\n");
-            }
+            fw.write("Name: " + names[i] + ", Age: " + ages[i] + ", Marks: " + marks[i] + ", Attendance: " + attendance[i] + "%, ID: " + ids[i] + ", Grade: " + grade[i] + ", CGPA: " + cgpa[i] + "\n");}
             fw.close();
             System.out.println("Data Saved Successfully!");
         } catch (IOException e) {
