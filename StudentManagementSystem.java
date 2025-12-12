@@ -367,7 +367,7 @@ public class StudentManagementSystem
             return;
         }
         double percentage = marks[index]; 
-        grade[index] = calculateGrade(marks[i]);
+        grade[index] = calculateGrade(marks[index]);
         cgpa[index] = calculateCGPA(marks[index]);
         System.out.printf("%-15s %-10s %-12s %-10s %-10s\n", "Name", "Marks", "Percentage", "Grade", "CGPA");
         System.out.printf("%-15s %-10d %-12.2f %-10s %-10.2f\n", names[index], marks[index], percentage, grade[index], cgpa[index]);
@@ -404,12 +404,22 @@ public class StudentManagementSystem
             System.out.println("Invalid Marks! Record not added.");
             return;
         }
+        System.out.print("Enter Attendance(0-100): ");
+        int attend=input.nextInt();
+        if(attend<0 || attend>100)
+        {
+            System.out.println("Invalid Attendance! Record not added.");
+            return;
+        }
         System.out.print("Enter ID: ");
         int id=input.nextInt();
         names[count]=name;
         ages[count]=age;
         marks[count]=mark;
+        attendance[count]=attend;
         ids[count]=id;
+        grade[count]=calculateGrade(mark);
+        cgpa[count]=calculateCGPA(mark);
         count++;
         System.out.println("Record added successfully!");
     }
@@ -420,9 +430,9 @@ public class StudentManagementSystem
             System.out.println("No records available.");
             return;
         }
-        for (int i=0;i<count;i++) 
-        {
-           System.out.println((i+1) + ". " + names[i] + " | Age: " + ages[i] + " | Marks: " + marks[i] + " | ID: " + ids[i]);
+           System.out.printf("%-5s %-20s %-5s %-8s %-12s %-10s %-10s\n", "ID", "Name", "Age", "Marks", "Attendance", "Grade", "CGPA");
+        for (int i = 0; i < count; i++) {
+            System.out.printf("%-5d %-20s %-5d %-8d %-12d %-10s %-10.2f\n", ids[i], names[i], ages[i], marks[i], attendance[i], grade[i], cgpa[i]);
         }
     }
     public static void updateRecord() 
@@ -430,9 +440,19 @@ public class StudentManagementSystem
         System.out.println("\n\n----------> UPDATE RECORD <----------");
         System.out.print("Enter Student ID to update: ");
         int id=input.nextInt();
-
-        System.out.println("\nPress Enter to return to Admin Panel...\n\n");
-        input.nextLine();
+        int index=-1;
+        for(int i=0;i<count;i++)
+        {
+            if(ids[i]==id)
+            {
+                index=i;
+                break;
+            }
+        }
+        if(index==-1) {
+            System.out.println("Student with ID " + id + " not found!");
+            return;
+        }
     }
     public static void searchRecord() 
     {
@@ -448,7 +468,7 @@ public class StudentManagementSystem
         try {
             FileWriter fw = new FileWriter("students.txt");
             for (int i = 0; i < count; i++) {
-                writer.write("Name: " + names[i] + ", Age: " + ages[i] + ", Marks: " + marks[i] + ", ID: " + ids[i] + "\n");
+                fw.write("Name: " + names[i] + ", Age: " + ages[i] + ", Marks: " + marks[i] + ", ID: " + ids[i] + "\n");
             }
             fw.close();
             System.out.println("Data Saved Successfully!");
