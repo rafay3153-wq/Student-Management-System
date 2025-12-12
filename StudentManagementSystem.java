@@ -11,6 +11,11 @@ public class StudentManagementSystem
     public static int LoggedAttendance = 0;
     public static String LoggedGrade = "";
     static int count=0;
+    static int[] marks = new int[100];
+    static int[] attendance = new int[100];
+    static String[] names = new String[100];
+    static double[] cgpas = new double[100];
+    static String[] grades = new String[100];
     static String [] username = new String [4];
     static String [] password = new String [4];
 
@@ -340,7 +345,6 @@ public class StudentManagementSystem
     public static void stdAcademics() 
     {
         System.out.println("\n\n----------> ACADEMICS REPORT <----------");
-        int count = 0;
         if(count == 0)
         {
             System.out.println("No records available.");
@@ -422,6 +426,34 @@ public class StudentManagementSystem
             }
         }
     }
+    public static String calculateGrade(int marks) 
+{
+    if(marks >= 90) return "A+";
+    if(marks >= 85) return "A";
+    if(marks >= 80) return "A-";
+    if(marks >= 75) return "B+";
+    if(marks >= 70) return "B";
+    if(marks >= 65) return "B-";
+    if(marks >= 60) return "C+";
+    if(marks >= 55) return "C";
+    if(marks >= 50) return "C-";
+    if(marks >= 45) return "D";
+    return "F";
+}
+
+public static double calculateCGPA(int marks)
+{
+    if(marks >= 90) return 4.0;
+    if(marks >= 85) return 3.7;
+    if(marks >= 80) return 3.3;
+    if(marks >= 75) return 3.0;
+    if(marks >= 70) return 2.7;
+    if(marks >= 65) return 2.3;
+    if(marks >= 60) return 2.0;
+    if(marks >= 55) return 1.7;
+    if(marks >= 50) return 1.0;
+    return 0.0;
+}
     public static void filesinitialize() 
     {
         try 
