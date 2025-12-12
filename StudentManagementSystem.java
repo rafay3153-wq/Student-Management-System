@@ -1,6 +1,6 @@
 import java.io.*;
 import java.util.*;
-public class StudentManagementSystem2 
+public class StudentManagementSystem
 {
     public static Scanner input = new Scanner(System.in);
     public static String LoggedName = "";
