@@ -353,16 +353,25 @@ public class StudentManagementSystem
             System.out.println("No records available.");
             return;
         }
-        System.out.printf("%-15s %-10s %-12s %-10s %-10s\n", "Name", "Marks", "Percentage", "Grade", "CGPA");
-        for(int i=0; i<count; i++)
+        int index=-1;
+        for(int i=0;i<count;i++)
         {
-            double percentage = marks[i]; 
-            grade[i] = calculateGrade(marks[i]);
-            cgpa[i] = calculateCGPA(marks[i]);
-            System.out.printf("%-15s %-10d %-12.2f %-10s %-10.2f\n", names[i], marks[i], percentage, grade[i], cgpa[i]);
+            if(names[i].equalsIgnoreCase(LoggedName))
+            {
+                index=i;
+                break;
+            }
         }
-        
-        
+        if(index==-1) {
+            System.out.println("Record for logged in student not found.");
+            return;
+        }
+        double percentage = marks[index]; 
+        grade[index] = calculateGrade(marks[i]);
+        cgpa[index] = calculateCGPA(marks[index]);
+        System.out.printf("%-15s %-10s %-12s %-10s %-10s\n", "Name", "Marks", "Percentage", "Grade", "CGPA");
+        System.out.printf("%-15s %-10d %-12.2f %-10s %-10.2f\n", names[index], marks[index], percentage, grade[index], cgpa[index]);
+
         System.out.println("\nPress Enter to return to Student Panel...\n\n");
         input.nextLine();  
     }
