@@ -133,7 +133,6 @@ public class StudentManagementSystem
             System.out.println("Error : " + e.getMessage());
           }
         }
-        stdPanel();
     }
     public static void admLogin()
     {
@@ -241,7 +240,6 @@ public class StudentManagementSystem
             System.out.println("Error : " + e.getMessage());
           }
         }
-        admPanel();
     }
     public static void stdPanel()
     {
@@ -260,7 +258,7 @@ public class StudentManagementSystem
                 input.nextLine();
                 continue;
             }
-            int choice = input.nextInt();
+            int choice = safeIntInput();
             input.nextLine();  
             switch(choice) 
             {
@@ -302,7 +300,7 @@ public class StudentManagementSystem
                 input.nextLine();
                 continue;
             }
-            int choice = input.nextInt();
+            int choice =safeIntInput();
             input.nextLine();  
             switch(choice) 
             {
@@ -376,7 +374,7 @@ public class StudentManagementSystem
             System.out.println("Record for logged in student not found.");
             return;
         }
-        double percentage = marks[index]; 
+        double percentage = (marks[index]/100.0)*100; 
         grade[index] = calculateGrade(marks[index]);
         cgpa[index] = calculateCGPA(marks[index]);
         System.out.printf("%-15s %-10s %-12s %-10s %-10s\n", "Name", "Marks", "Percentage", "Grade", "CGPA");
@@ -401,28 +399,28 @@ public class StudentManagementSystem
         System.out.print("Enter Student Name: ");
         String name =input.nextLine();
         System.out.print("Enter Age(18-25): ");
-        int age=input.nextInt();
+        int age=safeIntInput();
         if(age<18 || age>25)
         {
             System.out.println("Invalid Age! Record not added.");
             return;
         }
         System.out.print("Enter Marks(0-100): ");
-        int mark=input.nextInt();
+        int mark=safeIntInput();
         if(mark<0 || mark>100)
         {
             System.out.println("Invalid Marks! Record not added.");
             return;
         }
         System.out.print("Enter Attendance(0-100): ");
-        int attend=input.nextInt();
+        int attend=safeIntInput();
         if(attend<0 || attend>100)
         {
             System.out.println("Invalid Attendance! Record not added.");
             return;
         }
         System.out.print("Enter ID: ");
-        int id=input.nextInt();
+        int id=safeIntInput();
         for(int i=0;i<count;i++)
         {
             if(ids[i]==id)
@@ -457,7 +455,7 @@ public class StudentManagementSystem
     {
         System.out.println("\n\n----------> UPDATE RECORD <----------");
         System.out.print("Enter Student ID to update: ");
-        int id=input.nextInt();
+        int id=safeIntInput();
         int index=-1;
         for(int i=0;i<count;i++)
         {
@@ -480,7 +478,7 @@ public class StudentManagementSystem
             names[index] = name;
         }
         System.out.print("Enter new Age(18-25, 0 to keep current): ");
-        int newAge=input.nextInt();
+        int newAge=safeIntInput();
         if(newAge!=0) {
             if(newAge>=18 && newAge<=25) {
                 ages[index] = newAge;
@@ -489,7 +487,7 @@ public class StudentManagementSystem
             }
     }
     System.out.print("Enter new Attendance(0-100, -1 to keep current): ");
-    int newAttend=input.nextInt();
+    int newAttend=safeIntInput();
     if(newAttend!=-1) {
         if(newAttend>=0 && newAttend<=100) {
             attendance[index] = newAttend;
@@ -498,7 +496,7 @@ public class StudentManagementSystem
         }
     }
     System.out.print("Enter new Marks(0-100, -1 to keep current): ");
-    int newMarks=input.nextInt();
+    int newMarks=safeIntInput();
     if(newMarks!=-1) {
         if(newMarks>=0 && newMarks<=100) {
             marks[index] = newMarks;
@@ -514,7 +512,7 @@ public class StudentManagementSystem
     {
         System.out.println("\n\n----------> SEARCH RECORD <----------");
         System.out.print("Enter Student ID to search: ");
-        int id=input.nextInt();
+        int id=safeIntInput();
         input.nextLine();
         boolean found = false;
         for (int i=0;i<count;i++) {
