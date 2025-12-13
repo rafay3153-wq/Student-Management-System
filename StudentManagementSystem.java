@@ -1,665 +1,914 @@
 import java.io.*;
 import java.util.*;
-public class StudentManagementSystem
-{
-    public static Scanner input = new Scanner(System.in);
-    public static String LoggedName = "";
-    public static int LoggedAge = 0;
-    public static String LoggedDOB = "";
-    public static int LoggedRollNo = 0;
-    public static double LoggedCGPA = 0.0;
-    public static int LoggedAttendance = 0;
-    public static String LoggedGrade = "";
-    static int count=0;
-    static int[] marks = new int[100];
-    static int[] attendance = new int[100];
-    static String[] names = new String[100];
-    static double[] cgpa = new double[100];
-    static String[] grade = new String[100];
-    static int[] ages = new int[100];
-    static int[] ids = new int[100];
-    static String [] username = new String [4];
-    static String [] password = new String [4];
 
-    public static void stdLogin()
-    {
-        input.nextLine();  
-        System.out.println("\n\n----------> STUDENT LOGIN <----------");
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println("USERNAME : ");
-        String stdname = input.nextLine();
-        System.out.println();
-        System.out.println();
-        System.out.println("PASSWORD : ");
-        String stdpass = input.nextLine();
-        boolean noerrorstd = false;
-        while(!noerrorstd)
-        {
-          try
-          {
-            File file = new File("usernames.txt");
-            Scanner reader = new Scanner(file);
-            int i = 0;
+public class StudentManagementSystem {
+    static String[] studentIDs = new String[100];
+    static String[] studentNames = new String[100];
+    static int[] studentAges = new int[100];
+    static int[] studentAttendance = new int[100];
+    static String[] studentDOBs = new String[100];
+    static String[] courseNames;
+    static int numCourses = 0;
+    static int[][] courseMarks;
+    static double[] studentGPAs = new double[100];
+    
+    static int studentCount = 0;
+    static final String ADMIN_USERNAME = "admin";
+    static final String ADMIN_PASSWORD = "admin123";
+    static final String STUDENT_FILE = "students.txt";
+    static final String COURSE_FILE = "courses.txt";
+    static Scanner scanner = new Scanner(System.in);
+    static void adminLogin() {
+        try {
+            System.out.println("\n----------- ADMIN LOGIN -----------");
+            System.out.print("Username: ");
+            String username = scanner.nextLine();
+            System.out.print("Password: ");
+            String password = scanner.nextLine();
             
-            while(reader.hasNextLine() &&  i < 2)
-            {
-                username [i] =  reader.nextLine();
-                i++;
+            if (username.equals(ADMIN_USERNAME) && password.equals(ADMIN_PASSWORD)) {
+                System.out.println("\nLogin successful! Welcome Admin.");
+                adminMenu();
+            } else {
+                System.out.println("\nInvalid username or password!");
             }
-            reader.close();
-            noerrorstd = true;
-          }
-        catch(FileNotFoundException e)
-        {
-            System.out.println("Error File Not Found: " + e.getMessage());
-        }
-        catch(IOException ex)
-        {
-            System.out.println("Error During Reading The File: " + ex.getMessage());
-        }
-        catch(Exception ex)
-        {
-            System.out.println("Error : " + ex.getMessage());
-        }
-      }
-        
-      boolean noerrorpassstd = false;
-      while(!noerrorpassstd)
-      {
-        try
-        {
-            File newfile = new File("passwords.txt");
-            Scanner readerpass = new Scanner(newfile);
-            int j = 0;
-            
-            while(readerpass.hasNextLine() &&  j < 2)
-            {
-                password [j] =  readerpass.nextLine();
-                j++;
-            }
-            readerpass.close();
-            noerrorpassstd = true;
-        }
-        catch(FileNotFoundException e)
-        {
-            System.out.println("Error File Not Found: " + e.getMessage());
-        }
-        catch(IOException ex)
-        {
-            System.out.println("Error During Reading The File: " + ex.getMessage());
-        }
-        catch(Exception ex)
-        {
-            System.out.println("Error : " + ex.getMessage());
-        }
-      }
-        boolean stderror = false;
-        while(!stderror)
-        {
-          try
-          {
-            if( stdname.equals(username[0]) && stdpass.equals(password[0])) 
-            {
-              LoggedName = "Shehryar Khurram";
-              LoggedAge = 18;
-              LoggedRollNo = 45;
-              LoggedDOB = "29 December 2006";
-              System.out.println("Student Login Successful!");
-              System.out.println("Welcome Shehryar");
-              stdPanel();
-            }
-            else if( stdname.equals(username[1]) && stdpass.equals(password[1]) )
-            {
-              LoggedName = "Muhammad Rafay";
-              LoggedAge = 20;
-              LoggedRollNo = 35;
-              LoggedDOB = "29 October 2005";
-              System.out.println("Student Login Successful!");
-              System.out.println("Welcome Rafay");
-              stdPanel();
-            }
-            else
-            {
-              System.out.println("\nInvalid Username or Password");
-              System.out.println("\nReturning to Login menu\n\n");
-              return;
-            }
-          stderror = true;
-          }
-          catch(Exception e)
-          {
-            System.out.println("Error : " + e.getMessage());
-          }
+        } catch (Exception e) {
+            System.out.println("\nError in admin login: " + e.getMessage());
         }
     }
-    public static void admLogin()
-    {
-        input.nextLine();  
-        System.out.println("\n\n----------> ADMIN LOGIN <----------");
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println("USERNAME : ");
-        String admname = input.nextLine();
-        System.out.println();
-        System.out.println();
-        System.out.println("PASSWORD : ");
-        String admpass = input.nextLine();
-        boolean noerroradm = false;
-        while(!noerroradm)
-        {
-          try
-          {
-            File file = new File("usernames.txt");
-            Scanner reader = new Scanner(file);
-            reader.nextLine();
-            reader.nextLine();
-            int p = 2;
-            while(reader.hasNextLine() && p < 4)
-            {
-                username [p] =  reader.nextLine();
-                p++;
-            }
-            reader.close();
-            noerroradm = true;
-          }
-        catch(FileNotFoundException e)
-        {
-            System.out.println("Error File Not Found: " + e.getMessage());
-        }
-        catch(IOException ex)
-        {
-            System.out.println("Error During Reading The File: " + ex.getMessage());
-        }
-        catch(Exception ex)
-        {
-            System.out.println("Error : " + ex.getMessage());
-        }
-      }
+    static void adminMenu() {
+        boolean backToMain = false;
         
-      boolean noerrorpassadm = false;
-      while(!noerrorpassadm)
-      {
-        try
-        {
-            File newfile = new File("passwords.txt");
-            Scanner readerpass = new Scanner(newfile);
-            readerpass.nextLine();
-            readerpass.nextLine();
-            int k = 2;
-            while(readerpass.hasNextLine() &&  k < 4)
-            {
-                password [k] =  readerpass.nextLine();
-                k++;
-            }
-            readerpass.close();
-            noerrorpassadm = true; 
-        }
-        catch(FileNotFoundException e)
-        {
-            System.out.println("Error File Not Found: " + e.getMessage());
-        }
-        catch(IOException ex)
-        {
-            System.out.println("Error During Reading The File: " + ex.getMessage());
-        }
-        catch(Exception ex)
-        {
-            System.out.println("Error : " + ex.getMessage());
-        }
-      }
-        boolean admerror = false;
-        while(!admerror)
-        {
-          try
-          {
-            if( admname.equals(username[2]) && admpass.equals(password[2])) 
-            {
-              System.out.println("Admin Login Successful!");
-              System.out.println("Welcome Teacher 1");
-              admPanel();
-            }
-            else if( admname.equals(username[3]) && admpass.equals(password[3]) )
-            {
-              System.out.println("Admin Login Successful!");
-              System.out.println("Welcome Teacher 2");
-              admPanel();
-            }
-            else
-            {
-              System.out.println("\nInvalid Username or Password");
-              System.out.println("\nReturning to Login menu\n\n");
-              return;
-            }
-          admerror = true;
-          }
-          catch(Exception e)
-          {
-            System.out.println("Error : " + e.getMessage());
-          }
+        while (!backToMain) {
+            try {
+                System.out.println("\n========== ADMIN MENU ==========");
+                System.out.println("1. Configure Courses");
+                System.out.println("2. Add New Student");
+                System.out.println("3. View All Students");
+                System.out.println("4. Update Student Record");
+                System.out.println("5. Search Student");
+                System.out.println("6. Save Data to File");
+                System.out.println("7. Logout");
+                System.out.println("=================================");
+                System.out.print("Enter your choice (1-7): ");
+                
+                String input = scanner.nextLine();
+                
+                if (!isValidNumber(input, 1, 7)) {
+                    System.out.println("\nError: Please enter a valid number between 1 and 7!");
+                    continue;
+                }
+                
+                int choice = Integer.parseInt(input);
+                
+                switch (choice) {
+                    case 1:
+                        configureCourses();
+                        break;
+                    case 2:
+                        addStudentRecord();
+                        break;
+                    case 3:
+                        viewAllRecords();
+                        break;
+                    case 4:
+                        updateStudentRecord();
+                        break;
+                    case 5:
+                        searchStudentRecord();
+                        break;
+                    case 6:
+                        saveDataToFiles();
+                        System.out.println("\nData saved successfully!");
+                        break;
+                    case 7:
+                        backToMain = true;
+                        System.out.println("\nLogged out successfully!");
+                        break;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("\nError in admin menu: " + e.getMessage());
+            } catch (NoSuchElementException e) {
+                System.out.println("\nInput error in admin menu: " + e.getMessage());
+            } catch (Exception e) {
+                System.out.println("\nAn unexpected error occurred in admin menu: " + e.getMessage());
+            }   
         }
     }
-    public static void stdPanel()
-    {
-        while(true)
-        {
-            System.out.println("\n\n----------> STUDENT PANEL <----------");
-            System.out.println("--- 1. View Attendance ---");
-            System.out.println("--- 2. View Acadamics Report ---");
-            System.out.println("--- 3. View Profile ---");
-            System.out.println("--- 4. Log out ---");
-            System.out.println("\nEnter your choice ( 1 to 4 ) : ");
-            if (!input.hasNextInt()) 
-            {
-                System.out.println("Please enter numbers only!");
-                System.out.println("\nReturning to Student Panel\n\n");
-                input.nextLine();
-                continue;
-            }
-            int choice = safeIntInput();
-            input.nextLine();  
-            switch(choice) 
-            {
-                case 1: 
-                    stdAttendance(); 
-                    break;
-                case 2: 
-                    stdAcademics(); 
-                    break;
-                case 3: 
-                    stdProfile(); 
-                    break;
-                case 4:
-                {
-                    System.out.println("\nReturning to Login Menu");
+    static void configureCourses() {
+        try {
+            if (numCourses > 0) {
+                System.out.println("\nCourses are already configured:");
+                for (int i = 0; i < numCourses; i++) {
+                    System.out.println((i + 1) + ". " + courseNames[i]);
+                }
+                System.out.print("\nDo you want to reconfigure courses? (yes/no): ");
+                String answer = scanner.nextLine();
+                if (!answer.equalsIgnoreCase("yes")) {
                     return;
                 }
-                default: 
-                    System.out.println("\nInvalid Entry  Enter between 1 to 4\n\n");
-            }            
-        }
-    }
-    public static void admPanel() 
-    {
-        while(true)
-        {
-            System.out.println("\n\n----------> ADMIN PANEL <----------");
-            System.out.println("--- 1. Add Student Record ---");
-            System.out.println("--- 2. View All Student Records ---");
-            System.out.println("--- 3. Update Student Details ---");
-            System.out.println("--- 4. Search Student Records ---");
-            System.out.println("--- 5. Save Records to File ---");
-            System.out.println("--- 6. Logout ---");
-            System.out.println("\nEnter your choice ( 1 to 6 ) : ");
-            if (!input.hasNextInt()) 
-            {
-                System.out.println("\nPlease enter numbers only!");
-                System.out.println("\nReturning to Admin Panel\n\n");
-                input.nextLine();
-                continue;
             }
-            int choice =safeIntInput();
-            input.nextLine();  
-            switch(choice) 
-            {
-                case 1: 
-                    addRecord(); 
-                    break;
-                case 2: 
-                    viewRecord(); 
-                    break;
-                case 3: 
-                    updateRecord(); 
-                    break;
-                case 4: 
-                    searchRecord(); 
-                    break;
-                case 5: 
-                    saveToFile(); 
-                    break;
-                case 6:
-                    System.out.println("\nReturning to Login Menu\n\n");
-                    return;
-                default: 
-                    System.out.println("\nInvalid Entry  Enter between 1 to 6");
-            }            
-        }
-    }
-    public static void stdAttendance() 
-    {
-        System.out.println("\n\n----------> STUDENT ATTENDANCE <----------");
-        if(count == 0)
-        {
-            System.out.println("No records available.");
-            return;
-        }   
-            int index=-1;
-            for(int i=0; i<count; i++)
-            {
-                if(names[i].equalsIgnoreCase(LoggedName))
-                {
-                    index=i;
-                    break;
-                }
-            }
-            if(index==-1) {
-                System.out.println("Attendance record for logged in student not found.");
-            }
-            else {
-                System.out.println(LoggedName + "| Attendance: "+ attendance[index] + "%"); 
-            }
-        System.out.println("\nPress Enter to return to Student Panel...\n\n");
-        input.nextLine();
-    }
-    public static void stdAcademics() 
-    {
-        System.out.println("\n\n----------> ACADEMICS REPORT <----------");
-        if(count == 0)
-        {
-            System.out.println("No records available.");
-            return;
-        }
-        int index=-1;
-        for(int i=0;i<count;i++)
-        {
-            if(names[i].equalsIgnoreCase(LoggedName))
-            {
-                index=i;
-                break;
-            }
-        }
-        if(index==-1) {
-            System.out.println("Record for logged in student not found.");
-            return;
-        }
-        double percentage = (marks[index]/100.0)*100; 
-        grade[index] = calculateGrade(marks[index]);
-        cgpa[index] = calculateCGPA(marks[index]);
-        System.out.printf("%-15s %-10s %-12s %-10s %-10s\n", "Name", "Marks", "Percentage", "Grade", "CGPA");
-        System.out.printf("%-15s %-10d %-12.2f %-10s %-10.2f\n", names[index], marks[index], percentage, grade[index], cgpa[index]);
-
-        System.out.println("\nPress Enter to return to Student Panel...\n\n");
-        input.nextLine();  
-    }
-    public static void stdProfile() 
-    {
-        System.out.println("\n\n----------> STUDENT PROFILE <----------");
-        System.out.println("\nName : \t" + LoggedName);
-        System.out.println("\nAge : \t" + LoggedAge);
-        System.out.println("\nDate Of Birth : \t" + LoggedDOB);
-        System.out.println("\nRoll Number : \t" + LoggedRollNo);
-        System.out.println("\nPress Enter to return to Student Panel...\n\n");
-        input.nextLine();
-    }
-    public static void addRecord() 
-    {
-        System.out.println("\n\n----------> ADD RECORD <----------");
-        System.out.print("Enter Student Name: ");
-        String name =input.nextLine();
-        System.out.print("Enter Age(18-25): ");
-        int age=safeIntInput();
-        if(age<18 || age>25)
-        {
-            System.out.println("Invalid Age! Record not added.");
-            return;
-        }
-        System.out.print("Enter Marks(0-100): ");
-        int mark=safeIntInput();
-        if(mark<0 || mark>100)
-        {
-            System.out.println("Invalid Marks! Record not added.");
-            return;
-        }
-        System.out.print("Enter Attendance(0-100): ");
-        int attend=safeIntInput();
-        if(attend<0 || attend>100)
-        {
-            System.out.println("Invalid Attendance! Record not added.");
-            return;
-        }
-        System.out.print("Enter ID: ");
-        int id=safeIntInput();
-        for(int i=0;i<count;i++)
-        {
-            if(ids[i]==id)
-            {
-                System.out.println("ID already exists! Record not added.");
+            
+            System.out.println("\n----------- CONFIGURE COURSES -----------");
+            System.out.print("How many courses? (1-10): ");
+            String input = scanner.nextLine();
+            
+            if (!isValidNumber(input, 1, 10)) {
+                System.out.println("Error: Please enter a number between 1 and 10!");
                 return;
             }
-        }
-        names[count]=name;
-        ages[count]=age;
-        marks[count]=mark;
-        attendance[count]=attend;
-        ids[count]=id;
-        grade[count]=calculateGrade(mark);
-        cgpa[count]=calculateCGPA(mark);
-        count++;
-        System.out.println("Record added successfully!");
-    }
-    public static void viewRecord() 
-    {
-        System.out.println("\n\n----------> STUDENT RECORDS <----------");
-        if(count ==0) {
-            System.out.println("No records available.");
-            return;
-        }
-           System.out.printf("%-5s %-20s %-5s %-8s %-12s %-10s %-10s\n", "ID", "Name", "Age", "Marks", "Attendance", "Grade", "CGPA");
-        for (int i = 0; i < count; i++) {
-            System.out.printf("%-5d %-20s %-5d %-8d %-12d %-10s %-10.2f\n", ids[i], names[i], ages[i], marks[i], attendance[i], grade[i], cgpa[i]);
-        }
-    }
-    public static void updateRecord() 
-    {
-        System.out.println("\n\n----------> UPDATE RECORD <----------");
-        System.out.print("Enter Student ID to update: ");
-        int id=safeIntInput();
-        int index=-1;
-        for(int i=0;i<count;i++)
-        {
-            if(ids[i]==id)
-            {
-                index=i;
-                break;
-            }
-        }
-        if(index==-1) {
-            System.out.println("Student with ID " + id + " not found!");
-            return;
-        }
-        System.out.println("Current Record:");
-        System.out.printf("Name: %s, Age: %d, Marks: %d, Attendance: %d, Grade: %s, CGPA: %.2f\n", names[index], ages[index], marks[index], attendance[index], grade[index], cgpa[index]);
-        input.nextLine();
-        System.out.print("Enter new Name(press Enter to keep current): ");
-        String name = input.nextLine();
-        if(!name.isEmpty()) {
-            names[index] = name;
-        }
-        System.out.print("Enter new Age(18-25, 0 to keep current): ");
-        int newAge=safeIntInput();
-        if(newAge!=0) {
-            if(newAge>=18 && newAge<=25) {
-                ages[index] = newAge;
-            } else {
-                System.out.println("Invalid Age! Keeping current age.");
-            }
-    }
-    System.out.print("Enter new Attendance(0-100, -1 to keep current): ");
-    int newAttend=safeIntInput();
-    if(newAttend!=-1) {
-        if(newAttend>=0 && newAttend<=100) {
-            attendance[index] = newAttend;
-        } else {
-            System.out.println("Invalid Attendance! Keeping current attendence.");
-        }
-    }
-    System.out.print("Enter new Marks(0-100, -1 to keep current): ");
-    int newMarks=safeIntInput();
-    if(newMarks!=-1) {
-        if(newMarks>=0 && newMarks<=100) {
-            marks[index] = newMarks;
-            grade[index] = calculateGrade(newMarks);
-            cgpa[index] = calculateCGPA(newMarks);
-        } else {
-            System.out.println("Invalid Marks! Keeping current marks.");
-        }
-    }
-    System.out.println("Record updated successfully!");
-}
-    public static void searchRecord() 
-    {
-        System.out.println("\n\n----------> SEARCH RECORD <----------");
-        System.out.print("Enter Student ID to search: ");
-        int id=safeIntInput();
-        input.nextLine();
-        boolean found = false;
-        for (int i=0;i<count;i++) {
-            if(ids[i]==id) {
-                System.out.println("\nRecord Found:");
-                System.out.printf("ID: %d, Name: %s, Age: %d, Marks: %d, Attendance: %d, Grade: %s, CGPA: %.2f\n", ids[i], names[i], ages[i], marks[i], attendance[i], grade[i], cgpa[i]);
-                found = true;
-                break;
+            
+            numCourses = Integer.parseInt(input);
+            courseNames = new String[numCourses];
+            courseMarks = new int[100][numCourses];
+            
+            for (int i = 0; i < numCourses; i++) {
+                System.out.print("Enter name for Course " + (i + 1) + ": ");
+                courseNames[i] = scanner.nextLine();
+                
+                for (int j = 0; j < studentCount; j++) {
+                    courseMarks[j][i] = 0;
                 }
-            }
-            if(!found) {
-                System.out.println("Student with ID " + id + " not found!" );
-            }
-            System.out.println("\nPress Enter to return to Admin Panel...\n\n");
-            input.nextLine();
-        }
-    public static void saveToFile() 
-    {
-        System.out.println("\n\n----------> FILE SAVING <----------");
-        try {
-            FileWriter fw = new FileWriter("students.txt");
-            for (int i = 0; i < count; i++) {
-            fw.write("Name: " + names[i] + ", Age: " + ages[i] + ", Marks: " + marks[i] + ", Attendance: " + attendance[i] + "%, ID: " + ids[i] + ", Grade: " + grade[i] + ", CGPA: " + cgpa[i] + "\n");}
-            fw.close();
-            System.out.println("Data Saved Successfully!");
-        } catch (IOException e) {
-            System.out.println("An error occurred while saving data: " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("Error saving file!" + e.getMessage());
-        }   
-    }
-    public static int safeIntInput()
-    {
-        while(true)
-        {
-            try
-            {
-                return input.nextInt();
-            }
-            catch(Exception e)
-            {
-                System.out.print("Invalid input! Enter again: ");
-                input.nextLine();
-            }
-        }
-    }
-    public static String calculateGrade(int marks) 
-{
-    if(marks >= 90) return "A+";
-    if(marks >= 85) return "A";
-    if(marks >= 80) return "A-";
-    if(marks >= 75) return "B+";
-    if(marks >= 70) return "B";
-    if(marks >= 65) return "B-";
-    if(marks >= 60) return "C+";
-    if(marks >= 55) return "C";
-    if(marks >= 50) return "C-";
-    if(marks >= 45) return "D";
-    return "F";
-}
-
-public static double calculateCGPA(int marks)
-{
-    if(marks >= 90) return 4.0;
-    if(marks >= 85) return 3.7;
-    if(marks >= 80) return 3.3;
-    if(marks >= 75) return 3.0;
-    if(marks >= 70) return 2.7;
-    if(marks >= 65) return 2.3;
-    if(marks >= 60) return 2.0;
-    if(marks >= 55) return 1.7;
-    if(marks >= 50) return 1.0;
-    return 0.0;
-}
-    public static void filesinitialize() 
-    {
-        try 
-        {
-            File userFile = new File("usernames.txt");
-            File passFile = new File("passwords.txt");
-            if (!userFile.exists()) 
-            {
-                userFile.createNewFile();
-                FileWriter writer = new FileWriter(userFile);
-                writer.write("FA25-BDS-045\nFA25-BDS-035\nteacher1\nteacher2");
-                writer.close();
             }
             
-            if (!passFile.exists()) 
-            {
-                passFile.createNewFile();
-                FileWriter writer = new FileWriter(passFile);
-                writer.write("28076\n1122\n0011\n1234");
-                writer.close();
-            }
-        } 
-        catch (IOException e) 
-        {
-            System.out.println("Error initializing files: " + e.getMessage());
+            System.out.println("\nCourses configured successfully!");
+            System.out.println("Total courses: " + numCourses);
+        } catch (NumberFormatException e) {
+            System.out.println("\nError configuring courses: " + e.getMessage());
         }
     }
-    public static void main(String[] args) 
-    {
-        while(true)
-        {
-            filesinitialize();
-            System.out.println("----------> STUDENT MANAGEMENT SYSTEM <----------");
-            System.out.println("----------> SHEHRYAR KHURRAM FA25-BDS-045 <----------");
-            System.out.println("----------> MUHAMMAD RAFAY FA25-BDS-035 <----------");
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            boolean noerrormain = false;
-            while(!noerrormain)
-            {
-                try
-                {
-                    System.out.println("----------> LOGIN MENU <----------");
-                    System.out.println("--- 1. STUDENT LOGIN ---");
-                    System.out.println("--- 2. ADMIN LOGIN ---");
-                    System.out.println("--- 3. EXIT ---");
-                    System.out.println("\nEnter your choice ( 1 to 3 ) : ");
+    static void studentLogin() {
+        try {
+            System.out.println("\n----------- STUDENT LOGIN -----------");
+            System.out.print("Student ID (Username): ");
+            String username = scanner.nextLine();
+            System.out.print("Date of Birth (Password - DD-MM-YYYY): ");
+            String password = scanner.nextLine();
+            
+            int index = -1;
+            
+            for (int i = 0; i < studentCount; i++) {
+                if (studentIDs[i] != null && studentIDs[i].equals(username)) {
+                    index = i;
+                    break;
+                }
+            }
+            
+            if (index == -1) {
+                System.out.println("\nStudent ID not found!");
+                return;
+            }
+            
+            if (!studentDOBs[index].equals(password)) {
+                System.out.println("\nInvalid Date of Birth!");
+                return;
+            }
+            
+            System.out.println("\nLogin successful! Welcome " + studentNames[index]);
+            studentMenu(index);
+        } catch (Exception e) {
+            System.out.println("\nError in student login: " + e.getMessage());
+        }
+    }
+    static void studentMenu(int studentIndex) {
+        boolean backToMain = false;
+        
+        while (!backToMain) {
+            try {
+                System.out.println("\n========= STUDENT MENU =========");
+                System.out.println("1. View My Profile");
+                System.out.println("2. View My Attendance");
+                System.out.println("3. View My Academics Report");
+                System.out.println("4. Logout");
+                System.out.println("================================");
+                System.out.print("Enter your choice (1-4): ");
+                
+                String input = scanner.nextLine();
+                
+                if (!isValidNumber(input, 1, 4)) {
+                    System.out.println("\nError: Please enter a valid number between 1 and 4!");
+                    continue;
+                }
+                
+                int choice = Integer.parseInt(input);
+                
+                switch (choice) {
+                    case 1:
+                        viewStudentProfile(studentIndex);
+                        break;
+                    case 2:
+                        viewStudentAttendance(studentIndex);
+                        break;
+                    case 3:
+                        viewAcademicsReport(studentIndex);
+                        break;
+                    case 4:
+                        backToMain = true;
+                        System.out.println("\nLogged out successfully!");
+                        break;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("\nError in student menu: " + e.getMessage());
+            } catch (Exception e) {
+                System.out.println("\nAn unexpected error occurred in student menu: " + e.getMessage());
+            }
+        }
+    }
+    static void addStudentRecord() {
+        try {
+            if (studentCount >= 100) {
+                System.out.println("\nError: Maximum student limit reached (100 students)!");
+                return;
+            }
+            
+            if (numCourses == 0) {
+                System.out.println("\nError: Courses not configured yet!");
+                System.out.println("Please configure courses first from Admin Menu.");
+                return;
+            }
+            
+            System.out.println("\n----------- ADD NEW STUDENT -----------");
+            String id;
+            while (true) {
+                try {
+                    System.out.print("Enter Student ID: ");
+                    id = scanner.nextLine();
                     
-                    int choice = input.nextInt();
-                    switch(choice)
-                    {
+                    if (id.isEmpty()) {
+                        System.out.println("Error: Student ID cannot be empty!");
+                        continue;
+                    }
+                    
+                    if (findStudentByID(id) != -1) {
+                        System.out.println("Error: Student ID already exists!");
+                        continue;
+                    }
+                    break;
+                } catch (NoSuchElementException e) {
+                    System.out.println("Error: Input error - " + e.getMessage());
+                } catch (Exception e) {
+                    System.out.println("Error: " + e.getMessage());
+                }
+            }
+            String name;
+            while (true) {
+                try {
+                    System.out.print("Enter Student Name: ");
+                    name = scanner.nextLine();
+                    
+                    if (name.isEmpty()) {
+                        System.out.println("Error: Student Name cannot be empty!");
+                        continue;
+                    }
+                    
+                    boolean validName = true;
+                    for (int i = 0; i < name.length(); i++) {
+                        char c = name.charAt(i);
+                        if (!Character.isLetter(c) && c != ' ') {
+                            validName = false;
+                            break;
+                        }
+                    }
+                    
+                    if (!validName) {
+                        System.out.println("Error: Name can only contain letters and spaces!");
+                        continue;
+                    }
+                    break;
+                } catch (NoSuchElementException | NullPointerException e) {
+                    System.out.println("Error: " + e.getMessage());
+                } catch (Exception e) {
+                    System.out.println("Error: " + e.getMessage());
+                }
+            }
+            int age = 0;
+            while (true) {
+                try {
+                    System.out.print("Enter Student Age (18-25): ");
+                    String ageInput = scanner.nextLine();
+                    
+                    if (!isValidNumber(ageInput, 18, 25)) {
+                        System.out.println("Error: Age must be a number between 18 and 25!");
+                        continue;
+                    }
+                    
+                    age = Integer.parseInt(ageInput);
+                    break;
+                } catch (NumberFormatException e) {
+                    System.out.println("Error: " + e.getMessage());
+                } catch (Exception e) {
+                    System.out.println("Error: " + e.getMessage());
+                }
+            }
+            String dob;
+            while (true) {
+                try {
+                    System.out.print("Enter Date of Birth (DD-MM-YYYY): ");
+                    dob = scanner.nextLine();
+                    
+                    if (dob.length() != 10) {
+                        System.out.println("Error: Date of Birth must be in DD-MM-YYYY format!");
+                        continue;
+                    }
+                    if (dob.charAt(2) != '-' || dob.charAt(5) != '-') {
+                        System.out.println("Error: Date must be in DD-MM-YYYY format!");
+                        continue;
+                    }
+                    String day = dob.substring(0, 2);
+                    String month = dob.substring(3, 5);
+                    String year = dob.substring(6, 10);
+                    
+                    boolean validFormat = true;
+                    for (int i = 0; i < day.length(); i++) {
+                        if (!Character.isDigit(day.charAt(i))) validFormat = false;
+                    }
+                    for (int i = 0; i < month.length(); i++) {
+                        if (!Character.isDigit(month.charAt(i))) validFormat = false;
+                    }
+                    for (int i = 0; i < year.length(); i++) {
+                        if (!Character.isDigit(year.charAt(i))) validFormat = false;
+                    }
+                    
+                    if (!validFormat) {
+                        System.out.println("Error: Date must contain only digits in DD-MM-YYYY format!");
+                        continue;
+                    }
+                    int dayNum = Integer.parseInt(day);
+                    if (dayNum < 1 || dayNum > 31) {
+                        System.out.println("Error: Day must be between 01 and 31!");
+                        continue;
+                    }
+                    int monthNum = Integer.parseInt(month);
+                    if (monthNum < 1 || monthNum > 12) {
+                        System.out.println("Error: Month must be between 01 and 12!");
+                        continue;
+                    }
+                    
+                    break;
+                } catch (NumberFormatException e) {
+                    System.out.println("Error: " + e.getMessage());
+                } catch (Exception e) {
+                    System.out.println("Error: " + e.getMessage());
+                }
+            }
+            int attendance = 0;
+            while (true) {
+                try {
+                    System.out.print("Enter Attendance Percentage (0-100): ");
+                    String attendanceInput = scanner.nextLine();
+                    
+                    if (!isValidNumber(attendanceInput, 0, 100)) {
+                        System.out.println("Error: Attendance must be a number between 0 and 100!");
+                        continue;
+                    }
+                    
+                    attendance = Integer.parseInt(attendanceInput);
+                    break;
+                } catch (NumberFormatException e) {
+                    System.out.println("Error: " + e.getMessage());
+                } catch (Exception e) {
+                    System.out.println("Error: " + e.getMessage());
+                }
+            }
+            System.out.println("\nEnter marks for each course (0-100):");
+            int totalMarks = 0;
+            for (int i = 0; i < numCourses; i++) {
+                while (true) {
+                    try {
+                        System.out.print(courseNames[i] + " marks: ");
+                        String marksInput = scanner.nextLine();
+                        
+                        if (!isValidNumber(marksInput, 0, 100)) {
+                            System.out.println("Error: Marks must be between 0 and 100!");
+                            continue;
+                        }
+                        
+                        int marks = Integer.parseInt(marksInput);
+                        courseMarks[studentCount][i] = marks;
+                        totalMarks += marks;
+                        break;
+                    } catch (NumberFormatException e) {
+                        System.out.println("Error: " + e.getMessage());
+                    } catch (Exception e) {
+                        System.out.println("Error: " + e.getMessage());
+                }
+            }
+            }
+            double averageMarks = (double) totalMarks / numCourses;
+            studentGPAs[studentCount] = calculateCGPA((int) averageMarks);
+            studentIDs[studentCount] = id;
+            studentNames[studentCount] = name;
+            studentAges[studentCount] = age;
+            studentDOBs[studentCount] = dob;
+            studentAttendance[studentCount] = attendance;
+            studentCount++;
+            
+            System.out.println("\nStudent record added successfully!");
+            System.out.println("Total students: " + studentCount);
+             
+        } catch (NumberFormatException e) {
+            System.out.println("\nError adding student record: " + e.getMessage());
+        }
+    }
+    static void viewAllRecords() {
+        try {
+            if (studentCount == 0) {
+                System.out.println("\nNo student records found!");
+                return;
+            }
+            
+            System.out.println("\n----------- ALL STUDENT RECORDS -----------");
+            System.out.println("Total Students: " + studentCount);
+            System.out.println("===========================================");
+            
+            for (int i = 0; i < studentCount; i++) {
+                System.out.println("\nStudent #" + (i + 1));
+                System.out.println("ID: " + studentIDs[i]);
+                System.out.println("Name: " + studentNames[i]);
+                System.out.println("Age: " + studentAges[i]);
+                System.out.println("Date of Birth: " + studentDOBs[i]);
+                System.out.println("Attendance: " + studentAttendance[i] + "%");
+                System.out.println("GPA: " + studentGPAs[i]);
+                
+                if (numCourses > 0) {
+                    System.out.println("Course Marks:");
+                    for (int j = 0; j < numCourses; j++) {
+                        System.out.println("  " + courseNames[j] + ": " + courseMarks[i][j] + 
+                                          " (" + calculateGrade(courseMarks[i][j]) + ")");
+                    }
+                }
+                System.out.println("-------------------------------------------");
+            }
+        } catch (Exception e) {
+            System.out.println("\nError viewing records: " + e.getMessage());
+        }
+    }
+    static void updateStudentRecord() {
+        try {
+            if (studentCount == 0) {
+                System.out.println("\nNo student records found to update!");
+                return;
+            }
+            
+            System.out.println("\n----------- UPDATE STUDENT RECORD -----------");
+            System.out.print("Enter Student ID to update: ");
+            String id = scanner.nextLine();
+            
+            int index = findStudentByID(id);
+            
+            if (index == -1) {
+                System.out.println("\nStudent ID not found!");
+                return;
+            }
+            
+            System.out.println("\nCurrent Record:");
+            System.out.println("1. ID: " + studentIDs[index]);
+            System.out.println("2. Name: " + studentNames[index]);
+            System.out.println("3. Age: " + studentAges[index]);
+            System.out.println("4. Date of Birth: " + studentDOBs[index]);
+            System.out.println("5. Attendance: " + studentAttendance[index] + "%");
+            System.out.println("6. GPA: " + studentGPAs[index]);
+            
+            if (numCourses > 0) {
+                System.out.println("7. Update Course Marks");
+            }
+            System.out.println("8. Cancel");
+            System.out.print("Enter your choice (1-8): ");
+            
+            String choiceInput = scanner.nextLine();
+            
+            if (!isValidNumber(choiceInput, 1, 8)) {
+                System.out.println("Invalid choice!");
+                return;
+            }
+            
+            int choice = Integer.parseInt(choiceInput);
+            
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter new ID: ");
+                    String newID = scanner.nextLine();
+                    if (!newID.isEmpty()) {
+                        studentIDs[index] = newID;
+                        System.out.println("ID updated successfully!");
+                    }
+                    break;
+                    
+                case 2:
+                    System.out.print("Enter new name: ");
+                    String newName = scanner.nextLine();
+                    if (!newName.isEmpty()) {
+                        studentNames[index] = newName;
+                        System.out.println("Name updated successfully!");
+                    }
+                    break;
+                    
+                case 3:
+                    System.out.print("Enter new age (18-25): ");
+                    String ageInput = scanner.nextLine();
+                    if (isValidNumber(ageInput, 18, 25)) {
+                        studentAges[index] = Integer.parseInt(ageInput);
+                        System.out.println("Age updated successfully!");
+                    } else {
+                        System.out.println("Invalid age!");
+                    }
+                    break;
+                    
+                case 4:
+                    System.out.print("Enter new Date of Birth (DD-MM-YYYY): ");
+                    String newDOB = scanner.nextLine();
+                    if (newDOB.length() == 10 && newDOB.charAt(2) == '-' && newDOB.charAt(5) == '-') {
+                        studentDOBs[index] = newDOB;
+                        System.out.println("Date of Birth updated successfully!");
+                    } else {
+                        System.out.println("Invalid format! Must be DD-MM-YYYY");
+                    }
+                    break;
+                    
+                case 5:
+                    System.out.print("Enter new attendance (0-100): ");
+                    String attInput = scanner.nextLine();
+                    if (isValidNumber(attInput, 0, 100)) {
+                        studentAttendance[index] = Integer.parseInt(attInput);
+                        System.out.println("Attendance updated successfully!");
+                    } else {
+                        System.out.println("Invalid attendance!");
+                    }
+                    break;
+                    
+                case 6:
+                    System.out.print("Enter new GPA (0.0-4.0): ");
+                    String gpaInput = scanner.nextLine();
+                    try {
+                        double newGPA = Double.parseDouble(gpaInput);
+                        if (newGPA >= 0.0 && newGPA <= 4.0) {
+                            studentGPAs[index] = newGPA;
+                            System.out.println("GPA updated successfully!");
+                        } else {
+                            System.out.println("GPA must be between 0.0 and 4.0!");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid GPA format!");
+                    }
+                    break;
+                    
+                case 7:
+                    if (numCourses > 0) {
+                        updateCourseMarks(index);
+                    }
+                    break;
+                    
+                case 8:
+                    System.out.println("Update cancelled.");
+                    break;
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("\nError updating record: " + e.getMessage());
+        }
+    }
+    static void searchStudentRecord() {
+        try {
+            if (studentCount == 0) {
+                System.out.println("\nNo student records found!");
+                return;
+            }
+            
+            System.out.println("\n----------- SEARCH STUDENT -----------");
+            System.out.println("1. Search by ID");
+            System.out.println("2. Search by Name");
+            System.out.println("3. Back to Menu");
+            System.out.print("Enter your choice (1-3): ");
+            
+            String choiceInput = scanner.nextLine();
+            
+            if (!isValidNumber(choiceInput, 1, 3)) {
+                System.out.println("Invalid choice!");
+                return;
+            }
+            
+            int choice = Integer.parseInt(choiceInput);
+            
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter Student ID: ");
+                    String id = scanner.nextLine();
+                    searchByID(id);
+                    break;
+                    
+                case 2:
+                    System.out.print("Enter Student Name: ");
+                    String name = scanner.nextLine();
+                    searchByName(name);
+                    break;
+                    
+                case 3:
+                    return;
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("\nError searching student: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("\nAn unexpected error occurred while searching: " + e.getMessage());
+        }
+    }
+    static void viewStudentProfile(int index) {
+        try {
+            System.out.println("\n----------- MY PROFILE -----------");
+            System.out.println("Student ID: " + studentIDs[index]);
+            System.out.println("Name: " + studentNames[index]);
+            System.out.println("Age: " + studentAges[index]);
+            System.out.println("Date of Birth: " + studentDOBs[index]);
+            System.out.println("Attendance: " + studentAttendance[index] + "%");
+            System.out.println("GPA: " + studentGPAs[index]);
+        } catch (Exception e) {
+            System.out.println("\nError viewing profile: " + e.getMessage());
+        }
+    }
+    
+    static void viewStudentAttendance(int index) {
+        try {
+            System.out.println("\n----------- MY ATTENDANCE -----------");
+            System.out.println("Student: " + studentNames[index] + " (" + studentIDs[index] + ")");
+            System.out.println("Attendance Percentage: " + studentAttendance[index] + "%");
+        } catch (Exception e) {
+            System.out.println("\nError viewing attendance: " + e.getMessage());
+        }
+    }
+    
+    static void viewAcademicsReport(int index) {
+        try {
+            System.out.println("\n----------- ACADEMICS REPORT -----------");
+            System.out.println("Student: " + studentNames[index] + " (" + studentIDs[index] + ")");
+            System.out.println("Current GPA: " + studentGPAs[index]);
+            
+            if (numCourses > 0) {
+                System.out.println("\nCourse-wise Marks and Grades:");
+                System.out.println("==============================");
+                for (int i = 0; i < numCourses; i++) {
+                    int marks = courseMarks[index][i];
+                    String grade = calculateGrade(marks);
+                    System.out.println(courseNames[i] + ": " + marks + " marks (" + grade + ")");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("\nError viewing academics report: " + e.getMessage());
+        }
+    }
+    static int findStudentByID(String id) {
+        for (int i = 0; i < studentCount; i++) {
+            if (studentIDs[i] != null && studentIDs[i].equals(id)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    
+    static void searchByID(String id) {
+        int index = findStudentByID(id);
+        if (index == -1) {
+            System.out.println("\nStudent not found!");
+        } else {
+            System.out.println("\nStudent Found:");
+            System.out.println("ID: " + studentIDs[index]);
+            System.out.println("Name: " + studentNames[index]);
+            System.out.println("Age: " + studentAges[index]);
+            System.out.println("Attendance: " + studentAttendance[index] + "%");
+            System.out.println("GPA: " + studentGPAs[index]);
+        }
+    }
+    
+    static void searchByName(String name) {
+        boolean found = false;
+        for (int i = 0; i < studentCount; i++) {
+            if (studentNames[i] != null && studentNames[i].toLowerCase().contains(name.toLowerCase())) {
+                if (!found) {
+                    System.out.println("\nSearch Results:");
+                    found = true;
+                }
+                System.out.println("\nStudent #" + (i + 1));
+                System.out.println("ID: " + studentIDs[i]);
+                System.out.println("Name: " + studentNames[i]);
+                System.out.println("Age: " + studentAges[i]);
+                System.out.println("Attendance: " + studentAttendance[i] + "%");
+                System.out.println("GPA: " + studentGPAs[i]);
+            }
+        }
+        if (!found) {
+            System.out.println("\nNo students found with that name!");
+        }
+    }
+    
+    static void updateCourseMarks(int studentIndex) {
+        try {
+            System.out.println("\n----------- UPDATE COURSE MARKS -----------");
+            for (int i = 0; i < numCourses; i++) {
+                System.out.println((i + 1) + ". " + courseNames[i] + " (Current: " + 
+                                  courseMarks[studentIndex][i] + ")");
+            }
+            System.out.print("Select course to update (1-" + numCourses + "): ");
+            
+            String courseInput = scanner.nextLine();
+            
+            if (!isValidNumber(courseInput, 1, numCourses)) {
+                System.out.println("Invalid course selection!");
+                return;
+            }
+            
+            int courseIndex = Integer.parseInt(courseInput) - 1;
+            
+            System.out.print("Enter new marks for " + courseNames[courseIndex] + " (0-100): ");
+            String marksInput = scanner.nextLine();
+            
+            if (!isValidNumber(marksInput, 0, 100)) {
+                System.out.println("Invalid marks!");
+                return;
+            }
+            
+            int newMarks = Integer.parseInt(marksInput);
+            courseMarks[studentIndex][courseIndex] = newMarks;
+            int totalMarks = 0;
+            for (int i = 0; i < numCourses; i++) {
+                totalMarks += courseMarks[studentIndex][i];
+            }
+            double averageMarks = (double) totalMarks / numCourses;
+            studentGPAs[studentIndex] = calculateCGPA((int) averageMarks);
+            
+            System.out.println("Course marks updated successfully!");
+            
+        } catch (NumberFormatException e) {
+            System.out.println("\nError updating course marks: " + e.getMessage());
+        }
+    }
+    static String calculateGrade(int marks) {
+        if (marks >= 90) return "A+";
+        if (marks >= 80) return "A";
+        if (marks >= 70) return "B";
+        if (marks >= 60) return "C";
+        if (marks >= 50) return "D";
+        return "F";
+    }
+    
+    static double calculateCGPA(int marks) {
+        if (marks >= 90) return 4.0;
+        if (marks >= 80) return 3.5;
+        if (marks >= 70) return 3.0;
+        if (marks >= 60) return 2.5;
+        if (marks >= 50) return 2.0;
+        return 0.0;
+    }
+    
+    static boolean isValidNumber(String input, int min, int max) {
+        try {
+            int num = Integer.parseInt(input);
+            return num >= min && num <= max;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+    static void loadDataFromFiles() {
+        try {
+            File courseFile = new File(COURSE_FILE);
+            if (courseFile.exists()) {
+                Scanner fileScanner = new Scanner(courseFile);
+                if (fileScanner.hasNextLine()) {
+                    numCourses = Integer.parseInt(fileScanner.nextLine());
+                    courseNames = new String[numCourses];
+                    courseMarks = new int[100][numCourses];
+                    
+                    for (int i = 0; i < numCourses; i++) {
+                        if (fileScanner.hasNextLine()) {
+                            courseNames[i] = fileScanner.nextLine();
+                        }
+                    }
+                }
+                fileScanner.close();
+            }
+            File studentFile = new File(STUDENT_FILE);
+            if (studentFile.exists()) {
+                Scanner fileScanner = new Scanner(studentFile);
+                studentCount = 0;
+                
+                while (fileScanner.hasNextLine() && studentCount < 100) {
+                    String line = fileScanner.nextLine();
+                    String[] data = line.split(",");
+                    
+                    if (data.length >= 5 + numCourses) {
+                        studentIDs[studentCount] = data[0];
+                        studentNames[studentCount] = data[1];
+                        studentAges[studentCount] = Integer.parseInt(data[2]);
+                        studentDOBs[studentCount] = data[3];
+                        studentAttendance[studentCount] = Integer.parseInt(data[4]);
+                        studentGPAs[studentCount] = Double.parseDouble(data[5]);
+                        
+                        for (int i = 0; i < numCourses; i++) {
+                            if (5 + i + 1 < data.length) {
+                                courseMarks[studentCount][i] = Integer.parseInt(data[6 + i]);
+                            }
+                        }
+                        
+                        studentCount++;
+                    }
+                }
+                fileScanner.close();
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found error: " + e.getMessage());
+        } catch (NumberFormatException e) {
+            System.out.println("Error loading data: " + e.getMessage());
+        }
+    }
+    
+    static void saveDataToFiles() {
+        try {
+            PrintWriter courseWriter = new PrintWriter(COURSE_FILE);
+            courseWriter.println(numCourses);
+            for (int i = 0; i < numCourses; i++) {
+                courseWriter.println(courseNames[i]);
+            }
+            courseWriter.close();
+            PrintWriter studentWriter = new PrintWriter(STUDENT_FILE);
+            for (int i = 0; i < studentCount; i++) {
+                String line = studentIDs[i] + "," + 
+                             studentNames[i] + "," + 
+                             studentAges[i] + "," + 
+                             studentDOBs[i] + "," + 
+                             studentAttendance[i] + "," + 
+                             studentGPAs[i];
+                
+                for (int j = 0; j < numCourses; j++) {
+                    line = line + "," + courseMarks[i][j];
+                }
+                
+                studentWriter.println(line);
+            }
+            studentWriter.close();
+            
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found error: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error saving data: " + e.getMessage());
+        }
+    }
+    public static void main(String[] args) {
+        try {
+            loadDataFromFiles();
+            
+            System.out.println("=======================================");
+            System.out.println("   STUDENT MANAGEMENT SYSTEM");
+            System.out.println("=======================================");
+            
+            if (numCourses == 0) {
+                System.out.println("\nNo courses configured yet.");
+                System.out.println("Please login as admin to set up courses first.");
+            }
+            
+            boolean exitSystem = false;
+            
+            while (!exitSystem) {
+                try {
+                    System.out.println("\n----------- MAIN MENU -----------");
+                    System.out.println("1. Admin Login");
+                    System.out.println("2. Student Login");
+                    System.out.println("3. Exit System");
+                    System.out.println("----------------------------------");
+                    System.out.print("Enter your choice (1-3): ");
+                    
+                    String input = scanner.nextLine();
+                    
+                    if (!isValidNumber(input, 1, 3)) {
+                        System.out.println("\nError: Please enter a valid number between 1 and 3!");
+                        continue;
+                    }
+                    
+                    int choice = Integer.parseInt(input);
+                    
+                    switch (choice) {
                         case 1:
-                            stdLogin();
+                            adminLogin();
                             break;
                         case 2:
-                            admLogin();
+                            if (numCourses == 0) {
+                                System.out.println("\nCannot login: Courses not configured yet!");
+                                System.out.println("Please ask admin to set up courses first.");
+                            } else {
+                                studentLogin();
+                            }
                             break;
                         case 3:
-                        {
-                            System.out.println("\nExiting The Program");
-                            return;
-                        }
-                        default:
-                            System.out.println("\nInvalid Entry  Enter between 1 to 3\n\n");
+                            saveDataToFiles();
+                            exitSystem = true;
+                            System.out.println("\nThank you for using Student Management System!");
+                            System.out.println("Data saved successfully!");
+                            break;
                     }
-                    noerrormain = true;
+                } catch (NumberFormatException e) {
+                    System.out.println("\nAn unexpected error occurred in main menu: " + e.getMessage());
                 }
-                catch(InputMismatchException e)
-                {
-                    System.out.println("Error Invalid Entry   : " + e.getMessage());
-                    input.nextLine();
-                }      
+            }
+        } catch (Exception e) {
+            System.out.println("Critical error in system: " + e.getMessage());
+        } finally {
+            if (scanner != null) {
+                scanner.close();
             }
         }
     }
