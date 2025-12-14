@@ -364,6 +364,11 @@ public class StudentManagementSystem {
                         System.out.println("Error: Month must be between 01 and 12!");
                         continue;
                     }
+                    int yearNum = Integer.parseInt(year);
+                    if (yearNum < 1900 || yearNum > 2025) {
+                        System.out.println("Error: Year must be between 1900 and 2025!");
+                        continue;
+                    }
                     
                     break;
                 } catch (NumberFormatException e) {
