@@ -826,7 +826,7 @@ public class StudentManagementSystem {
                         studentGPAs[studentCount] = Double.parseDouble(data[5]);
                         
                         for (int i = 0; i < numCourses; i++) {
-                            if (5 + i + 1 < data.length) {
+                            if (6 + i < data.length) {
                                 courseMarks[studentCount][i] = Integer.parseInt(data[6 + i]);
                             }
                         }
