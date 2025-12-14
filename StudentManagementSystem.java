@@ -102,39 +102,60 @@ public class StudentManagementSystem {
                 for (int i = 0; i < numCourses; i++) {
                     System.out.println((i + 1) + ". " + courseNames[i]);
                 }
-                System.out.print("\nDo you want to reconfigure courses? (yes/no): ");
-                String answer = scanner.nextLine();
-                if (!answer.equalsIgnoreCase("yes")) {
-                    return;
+
+                while (true) {
+                    System.out.print("\nDo you want to reconfigure courses? (yes/no): ");
+                    String answer = scanner.nextLine();
+
+                    if (answer == null) {
+                        System.out.println("Input error. Please try again.");
+                        continue;
+                    }
+
+                    answer = answer.trim();
+
+                    if (answer.equalsIgnoreCase("yes")) {
+                        break; 
+                    } else if (answer.equalsIgnoreCase("no")) {
+                        System.out.println("Course reconfiguration cancelled.");
+                        return; 
+                    } else {
+                        System.out.println("Invalid input! Please enter 'yes' or 'no'.");
+                    }
                 }
             }
-            
+
             System.out.println("\n----------- CONFIGURE COURSES -----------");
             System.out.print("How many courses? (1-10): ");
             String input = scanner.nextLine();
-            
+
             if (!isValidNumber(input, 1, 10)) {
                 System.out.println("Error: Please enter a number between 1 and 10!");
                 return;
             }
-            
+
             numCourses = Integer.parseInt(input);
             courseNames = new String[numCourses];
             courseMarks = new int[100][numCourses];
-            
+
             for (int i = 0; i < numCourses; i++) {
                 System.out.print("Enter name for Course " + (i + 1) + ": ");
                 courseNames[i] = scanner.nextLine();
-                
+
                 for (int j = 0; j < studentCount; j++) {
                     courseMarks[j][i] = 0;
                 }
             }
-            
+
             System.out.println("\nCourses configured successfully!");
             System.out.println("Total courses: " + numCourses);
+
+        } catch (NoSuchElementException e) {
+            System.out.println("Input error occurred. Please try again.");
         } catch (NumberFormatException e) {
-            System.out.println("\nError configuring courses: " + e.getMessage());
+            System.out.println("Error configuring courses: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Unexpected error: " + e.getMessage());
         }
     }
     static void studentLogin() {
